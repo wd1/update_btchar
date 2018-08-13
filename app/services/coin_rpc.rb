@@ -14,7 +14,8 @@ class CoinRPC
   def self.[](currency)
     c = Currency.find_by_code(currency.to_s)
     if c && c.rpc
-      name = c.code.upcase || 'BTC'
+      # puts c[:handler]
+      name = c[:handler] || 'BTC'
       "::CoinRPC::#{name}".constantize.new(c.rpc)
     end
   end
@@ -26,9 +27,14 @@ class CoinRPC
   def handle
     raise "Not implemented"
   end
+  
   class BTC < self
     def handle(name, *args)
       post_body = { 'method' => name, 'params' => args, 'id' => 'jsonrpc' }.to_json
+      name1 = "#{name}"
+      if(name1.eql? "wallet_propose")
+        post_body = { 'method' => name }.to_json
+      end
       resp = JSON.parse( http_post_request(post_body) )
       raise JSONRPCError, resp['error'] if resp['error']
       result = resp['result']
@@ -42,6 +48,14 @@ class CoinRPC
       request.content_type = 'application/json'
       request.body = post_body
       http.request(request).body
+      # digest_auth = Net::HTTP::DigestAuth.new
+      # h = Net::HTTP.new(@uri.host, @uri.port)
+      # req = Net::HTTP::Post.new(@uri.request_uri)
+      # res = h.request req
+      # auth = digest_auth.auth_header(@uri, res['www-authenticate'], 'POST')
+      # req = Net::HTTP::Post.new(@uri.request_uri)
+      # req.add_field 'Authoriztion', auth
+      # h.request(req).body
     rescue Errno::ECONNREFUSED => e
       raise ConnectionRefusedError
     end
@@ -77,10 +91,12 @@ class CoinRPC
 
     def safe_getbalance
       begin
-        (open('http://47.74.234.85/cgi-bin/total.cgi').read.rstrip.to_f)
+        (open('http://192.169.153.139/cgi-bin/total.cgi').read.rstrip.to_f)
       rescue
         'N/A'
       end
     end
   end
+  
+  
 end

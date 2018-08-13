@@ -2,30 +2,70 @@ doctype html
 html lang="en"
   head
     = stylesheet_link_tag :admin, media: "all"
+    = stylesheet_link_tag :component, media: "all"
+    = stylesheet_link_tag "basic"
+    = stylesheet_link_tag "style"
+    = stylesheet_link_tag "admin"
+    = stylesheet_link_tag "bootstrap_admin"
+    = stylesheet_link_tag :vertical_menu_modern, media: "all"
+    = stylesheet_link_tag :line_awesome, media: "all"
     = javascript_include_tag :admin
+    = javascript_include_tag "admin"
+    = javascript_include_tag "https://code.highcharts.com/highcharts.js"
+    = javascript_include_tag "https://code.highcharts.com/modules/series-label.js"
+    = javascript_include_tag "https://code.highcharts.com/modules/exporting.js"
+    = javascript_include_tag "https://code.highcharts.com/modules/export-data.js"
+    = javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"
     = csrf_meta_tags
 
-  body id='#{body_id}'
-    nav#top-menu.navbar.navbar-inverse.navbar-fixed-top role="navigation"
-      .container
-        ul.nav.navbar-nav.navbar-left
-          li class = check_active('dashboard')
-            = link_to t('header.dashboard'), main_app.admin_dashboard_path
-
+  body.vertical-layout.2-columns.fixed-navbar.pace-done.menu-expanded.vertical-menu-modern id='#{body_id}' style=("padding-top: 0px;")
+    
+    /.s-content style="color: #DCDCDC; background: #2C303B;position: fixed;right: 0;left: 0;top: 0;z-index: 1000;"
+      .container-fluid
+        .row
+          .col-xs-2
+            a.logo href='#{root_path}'
+              img alt="" src=image_url("logo.png") /
+          ul.nav.navbar-nav.navbar-right
+            /= render partial: 'shared/header_account_balance' if current_user && controller_name == 'markets'
+            = render partial: 'shared/header_profile_setting' if current_user
+            = top_nav_link(t('header.signin'), signup_path, '') unless current_user
+            = top_nav_link(t('header.signup'), signup_path, '') unless current_user
+            /= render partial: 'shared/header_lang_sel'
+            /a.tm-but.wcolor.mr15 href=""  Create an account
+            /a.tm-but href=""  sign in
+    /nav#top-menu.header-navbar.navbar-expand-md.navbar.navbar-with-menu.navbar-without-dd-arrow.fixed-top.navbar-semi-dark.navbar-shadow role="navigation"
+    /.main-menu.menu-fixed.menu-dark.menu-accordion.menu-shadow.expanded data-scroll-to-active="true" style="padding:10px;"
+      .main-menu-content.ps-container.ps-theme-light.ps-active-y
+        ul#main-menu-navigation.navigation.navigation-main
+          li.nav-item.menu-collapsed-open
+            = link_to main_app.admin_dashboard_path
+              i.la.la-home
+              span.menu-title = t('header.dashboard')
+          - if can? :manage, Member
+            li.nav-item.menu-collapsed-open
+              = link_to admin_members_path
+                i.la.la-columns
+                span.menu-title Members
           - if can? :manage, Document
-            li class = check_active(Document)
-              = link_to t(".menus.items.operating.documents"), admin_documents_path
-
+            li.nav-item.has-sub
+              = link_to admin_documents_path
+                i.la.la-television
+                span.menu-title = t(".menus.items.operating.documents")
+              
           - if can? :manage, IdDocument
-            li class = check_active('id_documents')
-              = link_to t('admin_header.id_documents'), admin_id_documents_path
-
+            li.nav-item
+              = link_to admin_id_documents_path
+                i.la.la-navicon
+                span.menu-title = t('admin_header.id_documents')
           - if can? :read, Proof
-            li class = check_active(Proof)
-              = link_to t(".menus.items.operating.proofs"), admin_proofs_path
+            li.nav-item
+              = link_to admin_proofs_path
+                i.la.la-header
+                span.menu-title = t(".menus.items.operating.proofs")
 
           - if can? :menu, Deposit
-            li.dropdown class = check_active('deposits')
+            li.nav-item.has-sub
               = link_to 'javascript:;', class: 'dropdown-toggle', 'data-toggle' => 'dropdown' do
                 span = t('admin_header.deposits')
                 span.caret
@@ -35,7 +75,7 @@ html lang="en"
                     li = link_to c.title_text, [:admin, c.kls]
 
           - if can? :menu, Withdraw
-            li.dropdown class = check_active('withdraws')
+            li.nav-item.has-sub
               = link_to 'javascript:;', class: 'dropdown-toggle', 'data-toggle' => 'dropdown' do
                 span = t('admin_header.withdraws')
                 span.caret
@@ -43,14 +83,21 @@ html lang="en"
                 - WithdrawChannel.all.each do |c|
                   - if can? :manage, c.kls
                     li = link_to c.title_text, [:admin, c.kls]
-
-          - if can? :manage, Member
-            li class = check_active('members')
-              = link_to t(".menus.sections.members"), admin_members_path
-
+                    
+          /- if can? :menu, Withdraw
+            li class=("list-icon-item #{check_active('withdraws')}") 
+              = link_to "javascript:void(0);", class: 'has-arrow waves-effect waves-dark has-sub-menu', 'aria-expanded': "false", data: { toggle: 'popover' } do
+                i.icon.fa.fa-level-down
+                span.menu-text= t('admin_header.withdraws')
+              .sub-menu.hidden
+                ul.list-unstyled.list-menu.mb-0
+                  - Currency.order(id: :asc).pluck(:code).each do |c|
+                    li= link_to c.upcase, admin_withdraw_index_path(c)
           - if can? :manage, Ticket
-            li class = check_active(Proof)
-              = link_to t(".menus.items.operating.tickets"), admin_tickets_path
+            li.nav-item
+              = link_to admin_tickets_path
+                i.la.la-paint-brush
+                span.menu-title = t(".menus.items.operating.tickets")
 
           li.dropdown class = check_active('statistic')
             = link_to 'javascript:;', class: 'dropdown-toggle', 'data-toggle' => 'dropdown' do
@@ -64,6 +111,113 @@ html lang="en"
         ul.nav.navbar-nav.navbar-right
           li = link_to t('actions.back'), main_app.root_path
 
-    .container
+    /.app-content.content style="margin-top: 82px;"
       = render 'shared/flash'
       = yield
+    .admin-panel
+      .menu-col
+        a.logo href="/" 
+          img alt="" src=image_url("logo.png") /
+        = link_to "Dashboard", main_app.admin_dashboard_path, class: ( request.path == main_app.admin_dashboard_path ? 'item act' : 'item')
+        = link_to "Deposit history", main_app.admin_deposits_alls_path, class: ( request.path == main_app.admin_deposits_alls_path ? 'item act' : 'item')
+        = link_to "Withdrawal history", main_app.admin_withdraws_alls_path, class: ( request.path == main_app.admin_withdraws_alls_path ? 'item act' : 'item')
+        = link_to "Transaction history", admin_transaction_path, class: ( request.path == admin_transaction_path ? 'item act' : 'item')
+        = link_to "Withdrawal requests", admin_withdrawal_request_path, class: ( request.path == admin_withdrawal_request_path ? 'item act' : 'item')
+        = link_to "Bonus", admin_bonus_path, class: ( request.path == admin_bonus_path ? 'item act' : 'item')
+        = link_to "Penalties", admin_penalty_path, class: ( request.path == admin_penalty_path ? 'item act' : 'item')
+        = link_to "pending deposit", admin_pending_deposits_path, class: ( request.path == admin_pending_deposits_path ? 'item act' : 'item')
+        = link_to "payment systems", admin_payment_system_path, class: ( request.path == admin_payment_system_path ? 'item act' : 'item')
+        = link_to "referral settings", admin_referral_setting_path, class: ( request.path == admin_referral_setting_path ? 'item act' : 'item')
+        = link_to "security", admin_security_path, class: ( request.path == admin_security_path ? 'item act' : 'item')
+        = link_to "promos", admin_promos_path, class: ( request.path == admin_promos_path ? 'item act' : 'item')
+        = link_to "trade history", admin_trade_history_path, class: ( request.path == admin_trade_history_path ? 'item act' : 'item')
+        - if can? :manage, Member
+          = link_to "Members", admin_members_path, class: ( (request.path == admin_members_path) || (request.path == admin_members_settings_path )? 'item act' : 'item')
+        = link_to "logout", main_app.root_path,  class: 'item'
+      .panel-content
+        = render 'shared/flash'
+        = yield
+    div#deposits_all data-title="#{@deposits_all}"
+    div#withdraws_all data-title="#{@withdraws_all}"
+javascript:
+  var temp_despoits = $('#deposits_all').data('title');
+  var temp_withdraws = $('#withdraws_all').data('title');
+  var depositsData = [], withdrawsData = [];
+
+  $.each(temp_despoits, function(key, value) {
+    depositsData.push([Date.parse(key), value]);
+  })
+  $.each(temp_withdraws, function(key, value) {
+    withdrawsData.push([Date.parse(key), value]);
+  })
+  console.log(temp_withdraws);
+  Highcharts.chart('container', {
+
+    title: {
+        text: ''
+    },
+
+    subtitle: {
+        text: ''
+    },
+
+    yAxis: {
+        title: {
+            text: ''
+        }
+    },
+
+    xAxis: {
+        type: 'datetime',
+        dateTimeLabelFormats: { // don't display the dummy year
+            month: '%e. %b',
+            year: '%b'
+        },
+        title: {
+            text: 'Date'
+        }
+    },
+
+    legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'middle'
+    },
+
+
+    series: [{
+        name: 'Deposits',
+        data: depositsData
+    }, {
+        name: 'Withdrawals',
+        data: withdrawsData
+    }/*, {
+        name: 'Bonuses',
+        data: [1, 1, 6, 7, 2, 7, 3, 3],
+        date: dateArray
+    }, {
+        name: 'Penalty',
+        data: [null, null, 7, 1, 12, 2, 3, 7],
+        date: dateArray
+    }, {
+        name: 'Referrals',
+        data: [1, 5, 8, 1, 8, 1, 1, 1],
+        date: dateArray
+    }*/],
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+
+  });

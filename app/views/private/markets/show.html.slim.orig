@@ -1,0 +1,283 @@
+doctype html
+html lang="en"
+  head
+    link href="/favicon.ico" rel="shortcut icon"
+    = include_gon
+    - stylesheet = content_for?(:stylesheet) ? yield(:stylesheet) : "application"
+    /= stylesheet_link_tag "market", media: "all"
+    /= stylesheet_link_tag "market", media: "all"
+    = stylesheet_link_tag stylesheet, media: "all"
+    = stylesheet_link_tag "bootstrap1"
+    = stylesheet_link_tag "basic"
+    = stylesheet_link_tag "style"
+    = javascript_include_tag "market"
+    = javascript_include_tag "jcarousel"
+    = javascript_include_tag "script"
+    = javascript_include_tag "locales/#{I18n.locale}"
+    = render 'shared/html5'
+    = render 'shared/meta'
+    = csrf_meta_tags
+
+  body id='#{body_id}' data-lang="#{locale_name}" class="header"
+    audio preload='preload' id='success-fx'
+      source src="/sounds/success.mp3"
+
+    audio preload='preload' id='warning-fx'
+      source src="/sounds/warning.mp3"
+    = render 'shared/header'
+    /= render partial: "private/markets/header"
+    #wrap style=("position:relative;margin-top:0px;") class="vlb-bg"
+      .vlb-bg.pt25.pb25
+        .s-content
+          .container-fluid
+            .row
+              .col-xs-9
+                .rb7.p25.w-bg
+                  .cf.mb25
+                    .fs16.b-color.fw700.t-up.fl ETH/BTC dinamic
+                    .fr
+                      .dib.rb5.g-border.pt1.pb1.pl15.pr15.g-color.mr10 24 low $1140.0876
+                      .dib.rb5.r-border.pt1.pb1.pl15.pr15.r-color 24 low $1140.0876
+                  .chart style=("height:447px;")                    
+                    = render partial: 'candlestick'
+                    = render partial: 'range_switch'
+                    = render partial: 'indicator_switch'
+                  .mt15
+                    | Volume:
+                    span.fw700 45673 ETH/19326746 USD
+              .col-xs-3
+                .curr-box
+                  .curr-but-box
+                    = render partial: 'market_list'
+                 
+      .pt25.pb25
+        .s-content
+          .container-fluid
+            .row
+              .col-xs-3
+                = render partial: 'bid_entry', locals: {market: @market, order: @order_bid }
+                /.rb7.ovh.w-bg.grey-box
+                  .g-h-gradient.t-b-line
+                  .b-t-bg.pt11.pb12.pl20.b-color.fw700.t-up.fs16 BuY ETH
+                  .p20
+                    form.buy-curr-form action="" 
+                      .row.mb15
+                        .col-xs-5.rel.label-box
+                          .label Amount:
+                        .col-xs-7.input-box
+                          input type="text" /
+                          .curr-placeholder ETH
+                      .row.mb15
+                        .col-xs-5.rel.label-box
+                          .label Price:
+                        .col-xs-7.input-box
+                          input type="text" /
+                          .curr-placeholder BTC
+                      .row.mb15.mt30
+                        .col-xs-5.rel.label-box
+                          .label Total:
+                        .col-xs-7.input-box
+                          input.inactive type="text" /
+                          .curr-placeholder BTC
+                      .row.mb15
+                        .col-xs-5.rel.label-box
+                          .label Commission:
+                        .col-xs-7.input-box
+                          input.inactive type="text" /
+                          .curr-placeholder BTC
+                      .row.mb15
+                        .col-xs-5.rel.label-box
+                          .label Available balance:
+                        .col-xs-7.input-box
+                          input.inactive type="text" /
+                          .curr-placeholder BTC
+                      .tac.mt25
+                        .green-but.w
+                          .icon
+                          .name BUY ETH
+              .col-xs-3
+                = render partial: 'ask_entry', locals: {market: @market, order: @order_ask } 
+              .col-xs-3
+                = render partial: 'stop_limit', locals: {market: @market, order: @order_ask } 
+              .col-xs-3
+                = render partial: 'offer_entry', locals: {market: @market, order: @order_ask } 
+      .vlb-bg.pt25.pb25
+        .s-content
+          .container-fluid
+            .row
+              .col-xs-4
+                = render partial: 'order_book'
+              .col-xs-4
+                = render partial: 'order_ask_book'
+              .col-xs-4
+                = render partial: 'my_orders'
+                
+      .pt25.pb25
+        .s-content
+          = render partial: 'market_trades'
+          /.pl12
+            .pt5.pb10.fl.b-color.fw700.t-up.fs16
+              | trading history
+            .pr20
+              table.tb-data
+                tr.title.nb
+                  td.w25 date/time
+                  td.w15 Opertaion
+                  td.w20 Price
+                  td.w20 Quantity
+                  td.w20 amount
+            .rel.pr20.tl
+              table.tb-data
+                tr.data
+                  td.w25 22 Jan, 2017 12:45
+                  td.w15
+                    .dib.fs12.rb5.g-border.t-up.pl10.pr10.g-color.mr10 buy
+                  td.w20 0.00011743
+                  td.w20 1.40607488
+                  td.w20 0.00016512
+                tr.data.even
+                  td.w25 22 Jan, 2017 12:45
+                  td.w15
+                    .dib.fs12.rb5.r-border.t-up.pl10.pr10.r-color.mr10 sell
+                  td.w20 0.00011743
+                  td.w20 1.40607488
+                  td.w20 0.00016512
+                tr.data
+                  td.w25 22 Jan, 2017 12:45
+                  td.w15
+                    .dib.fs12.rb5.g-border.t-up.pl10.pr10.g-color.mr10 buy
+                  td.w20 0.00011743
+                  td.w20 1.40607488
+                  td.w20 0.00016512
+                tr.data.even
+                  td.w25 22 Jan, 2017 12:45
+                  td.w15
+                    .dib.fs12.rb5.r-border.t-up.pl10.pr10.r-color.mr10 sell
+                  td.w20 0.00011743
+                  td.w20 1.40607488
+                  td.w20 0.00016512
+                tr.data
+                  td.w25 22 Jan, 2017 12:45
+                  td.w15
+                    .dib.fs12.rb5.g-border.t-up.pl10.pr10.g-color.mr10 buy
+                  td.w20 0.00011743
+                  td.w20 1.40607488
+                  td.w20 0.00016512
+                tr.data.even
+                  td.w25 22 Jan, 2017 12:45
+                  td.w15
+                    .dib.fs12.rb5.r-border.t-up.pl10.pr10.r-color.mr10 sell
+                  td.w20 0.00011743
+                  td.w20 1.40607488
+                  td.w20 0.00016512
+                tr.data
+                  td.w25 22 Jan, 2017 12:45
+                  td.w15
+                    .dib.fs12.rb5.g-border.t-up.pl10.pr10.g-color.mr10 buy
+                  td.w20 0.00011743
+                  td.w20 1.40607488
+                  td.w20 0.00016512
+                tr.data.even
+                  td.w25 22 Jan, 2017 12:45
+                  td.w15
+                    .dib.fs12.rb5.r-border.t-up.pl10.pr10.r-color.mr10 sell
+                  td.w20 0.00011743
+                  td.w20 1.40607488
+                  td.w20 0.00016512
+                tr.data
+                  td.w25 22 Jan, 2017 12:45
+                  td.w15
+                    .dib.fs12.rb5.g-border.t-up.pl10.pr10.g-color.mr10 buy
+                  td.w20 0.00011743
+                  td.w20 1.40607488
+                  td.w20 0.00016512
+                tr.data.even
+                  td.w25 22 Jan, 2017 12:45
+                  td.w15
+                    .dib.fs12.rb5.r-border.t-up.pl10.pr10.r-color.mr10 sell
+                  td.w20 0.00011743
+                  td.w20 1.40607488
+                  td.w20 0.00016512
+              .scroll-bar
+      .footer
+        .s-content
+          .container-fluid
+            .row
+              .col-xs-3
+                a.logo href="/" 
+                  img src=image_tag("logo.png") /
+                .t-up.mb15.footer-s-tit crypto trading platform
+                .f-social
+                  a.fb href="" 
+                  a.tw href="" 
+                  a.tel href="" 
+                .mt30 © 2013 - 2017 BitCharge LLP
+                a.tdu-flh.opacity5.t-w-color href=""  Terms & conditions
+              .col-xs-2
+                .fw700.g-color.t-up.mb20 products
+                .mb15
+                  a.footer-link href=""  Wallet
+                .mb15
+                  a.footer-link href=""  Buy & Sell
+                .mb15
+                  a.footer-link href=""  API
+              .col-xs-2
+                .fw700.g-color.t-up.mb20 information
+                .mb15
+                  a.footer-link href=""  Customer support
+                .mb15
+                  a.footer-link href=""  CETTOWIKI
+                .mb15
+                  a.footer-link href=""  Fees & Limits
+                .mb15
+                  a.footer-link href=""  Referral Program
+                .mb15
+                  a.footer-link href=""  About Bitcoin (eng)
+              .col-xs-2
+                .fw700.g-color.t-up.mb20 company
+                .mb15
+                  a.footer-link href=""  Wallet
+                .mb15
+                  a.footer-link href=""  Buy & Sell
+                .mb15
+                  a.footer-link href=""  API
+              .col-xs-3
+                .address
+                  .icon
+                  .mb10 BitCharge LLP  NO. 8487272538467
+                  .mb10
+                    | 160 Piccadilly, St. James's,
+                    | London W1J 9EB, United Kingdom
+                  .opacity3 +44 20 7499 6996
+    /#wrap style=("position:relative;margin-top:0px;") class="vlb-bg"
+      .content style=("top:0px;")
+        /my_order
+        = render partial: 'market_trades'
+        /market list
+        /= render partial: 'market_list'
+        /chart
+        /= render partial: 'candlestick'
+        /top_chart - range 1h,2h... will be with chart
+        /= render partial: 'range_switch'
+        /similar to range_swith
+        /= render partial: 'indicator_switch'
+
+        - if ENV['CHAT_FEATURE']
+          #chat_tabs_wrapper.float
+            ul.nav.nav-tabs.tabs-right.sideways
+              li: a href='#chat_content' data-toggle='tab' = t('.chat')
+            .tab-content
+              #chat_content.tab-pane
+                = render partial: 'chat'
+        /orderbook
+        /= render partial: 'order_book'
+        /will remove
+        = render partial: 'depths'
+        /will remove
+        = render partial: 'ticker'
+        /sell
+        /= render partial: 'ask_entry', locals: {market: @market, order: @order_ask }
+        /buy 
+        /= render partial: 'bid_entry', locals: {market: @market, order: @order_bid }
+        /my orders
+        /= render partial: 'my_orders'

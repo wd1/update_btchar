@@ -246,6 +246,7 @@ header {
   }
 }
 
+
 #ask_entry > .mask { padding-top: 80px; }
 #bid_entry > .mask { padding-top: 80px; }
 
@@ -634,6 +635,9 @@ header {
       &.blk { tr.quote-blk { display: block; } }
       &.rpt { tr.quote-rpt { display: block; } }
       &.trt { tr.quote-trt { display: block; } }
+      &.inr { tr.quote-inr { display: block; } }
+      &.eth { tr.quote-eth { display: block; } }
+      &.bch { tr.quote-bch { display: block; } }
     }
   }
 }

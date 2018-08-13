@@ -2,14 +2,16 @@ doctype html
 html lang="en"
   head
     link href="/favicon.ico" rel="shortcut icon"
-    = include_gon
     - stylesheet = content_for?(:stylesheet) ? yield(:stylesheet) : "application"
-    = stylesheet_link_tag 'market', media: "all"
+    /= stylesheet_link_tag "market", media: "all"
+    /= stylesheet_link_tag "market", media: "all"
     = stylesheet_link_tag stylesheet, media: "all"
     = stylesheet_link_tag "bootstrap1"
     = stylesheet_link_tag "basic"
     = stylesheet_link_tag "style"
     = javascript_include_tag "market"
+    = javascript_include_tag "jcarousel"
+    = javascript_include_tag "script"
     = javascript_include_tag "locales/#{I18n.locale}"
     = render 'shared/html5'
     = render 'shared/meta'
@@ -35,7 +37,7 @@ html lang="en"
                     .fr
                       .dib.rb5.g-border.pt1.pb1.pl15.pr15.g-color.mr10 24 low $1140.0876
                       .dib.rb5.r-border.pt1.pb1.pl15.pr15.r-color 24 low $1140.0876
-                  .chart                    
+                  .chart style=("height:447px;")                    
                     = render partial: 'candlestick'
                     = render partial: 'range_switch'
                     = render partial: 'indicator_switch'
@@ -94,16 +96,20 @@ html lang="en"
                           .name BUY ETH
               .col-xs-3
                 = render partial: 'ask_entry', locals: {market: @market, order: @order_ask } 
-              .col-xs-6
-                = render partial: 'my_orders'
+              .col-xs-3
+                = render partial: 'stop_limit', locals: {market: @market, order: @order_ask } 
+              .col-xs-3
+                = render partial: 'offer_entry', locals: {market: @market, order: @order_ask } 
       .vlb-bg.pt25.pb25
         .s-content
           .container-fluid
             .row
-              .col-xs-6
+              .col-xs-4
                 = render partial: 'order_book'
-              .col-xs-6
+              .col-xs-4
                 = render partial: 'order_ask_book'
+              .col-xs-4
+                = render partial: 'my_orders'
                 
       .pt25.pb25
         .s-content

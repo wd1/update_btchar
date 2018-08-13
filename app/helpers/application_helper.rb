@@ -44,8 +44,8 @@ module ApplicationHelper
   def qr_tag(text)
     return if text.blank?
     content_tag :div, '', 'class'       => 'qrcode-container img-thumbnail',
-                          'data-width'  => 272,
-                          'data-height' => 272,
+                          'data-width'  => 80,
+                          'data-height' => 80,
                           'data-text'   => text
   end
 

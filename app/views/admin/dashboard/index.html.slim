@@ -1,4 +1,80 @@
-.row
+.container-fluid.mt15
+  .row
+    .col-xs-3
+      .a-box
+        .fl.t-up.lh22
+          | pending deposit
+        .fr
+          .dib.rb5.a-green-bg.t-w-color.fw700.pt2.pb2.pl10.pr10 15
+    .col-xs-3
+      .a-box
+        .fl.t-up.lh22
+          | pending witdrawal
+        .fr
+          .dib.rb5.a-red-bg.t-w-color.fw700.pt2.pb2.pl10.pr10 15
+    .col-xs-3
+      .a-box
+        .fl.t-up.lh22
+          | verification requests
+        .fr
+          .dib.rb5.a-blue-bg.t-w-color.fw700.pt2.pb2.pl10.pr10 15
+    .col-xs-3
+      .a-box
+        .fl.t-up.lh22
+          | total unverified users
+        .fr
+          .dib.rb5.a-grey-bg.t-w-color.fw700.pt2.pb2.pl10.pr10 15
+.container-fluid.mt15
+  .a-box
+    .chart-control-box
+      .item.d-c.act Deposits
+      .item.w-c.act Withdrawals
+      .item.b-c.act Bonuses
+      .item.p-c Penalty
+      .item.r-c Referrals
+      .item.reg-c Registrations
+      .item.vu-c Verified users
+      .item.pd-c Pending deposits
+      .item.pw-c Pending withdrawals
+      .item.b-c Balance
+    .mt10
+      #container
+.container-fluid.mt15
+  .row
+    .col-xs-8
+      .a-box.p0
+        table.standard-table
+          tr.title
+            td Currency
+            td Locked
+            td balance
+            td SUM
+          - @currencies_summary.each do |c|
+            tr.item
+              td #{c[:name]}
+              td #{'%.8f' % c[:locked]}
+              td.text-right #{'%.8f' % c[:balance]}
+              td.text-right #{'%.8f' % c[:sum]}
+    .col-xs-4
+      .a-box.p0
+        table.standard-table
+          tr.title
+            td Daemon
+            td State
+          - @daemon_statuses.each do |daemon, state|
+            tr.item
+              - if state == :not_exists
+                td.text-danger = daemon
+                td
+                  .dib.a-red-bg.rb3.t-up.t-w-color.pt3.pb3.pl10.pr10.fs12
+                    | not exists
+              - else
+                td.text-info = daemon
+                td
+                  .dib.a-green-bg.rb3.t-up.t-w-color.pt3.pb3.pl10.pr10.fs12
+                    | Active
+
+/.row
   .col-xs-24
     .panel.panel-primary
       .panel-heading Currencies Summary
@@ -31,7 +107,7 @@
                   td.text-right N/A
       .panel-footer
         span Tips: Locked + Balance = Sum | Hot-Wallet + Cold-Wallet = Sum
-.row
+/.row
   .col-xs-12: .panel.panel-primary
     .panel-heading Daemon Statuses
     .panel-body

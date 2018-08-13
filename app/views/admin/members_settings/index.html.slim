@@ -1,0 +1,51 @@
+.container-fluid.mt15
+  .row
+    .col-xs-12
+      .dib.blue-switch-box.mb20
+        = link_to "Members", admin_members_path,  class: 'item'
+        = link_to "Account settings", admin_members_settings_path,  class: 'item'
+      .a-box
+        .row.mb15
+          .col-xs-4.pt7
+            | Registration mode:
+          .col-xs-4
+            .input-box.s100
+              select name="" 
+                option value=""  Allow
+                option value=""  Dissalow
+        .row.mb15
+          .col-xs-4.pt7
+            | Min password length:
+          .col-xs-4
+            .input-box.s100
+              input type="text" /
+        .row.mb15
+          .col-xs-4.pt7
+            | Password format:
+          .col-xs-4
+            .input-box.s100
+              input type="text" /
+        .row.mb15
+          .col-xs-4.pt7
+            | Confirm operation by:
+          .col-xs-4
+            .input-box.s100
+              select name="" 
+                option value=""  Allow
+                option value=""  Dissalow
+        .row.mb15
+          .col-xs-4.pt7
+            | Modify personal data:
+          .col-xs-4
+            .input-box.s100
+              select name="" 
+                option value=""  Allow
+                option value=""  Dissalow
+        .row.mb15
+          .col-xs-4.pt7
+            | Checking for multiple registration:
+          .col-xs-4
+            .input-box.s100
+              select name="" 
+                option value=""  Allow
+                option value=""  Dissalow

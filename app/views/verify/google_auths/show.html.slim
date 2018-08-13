@@ -1,24 +1,166 @@
-= simple_form_for @google_auth, as: 'google_auth', url: verify_google_auth_path do |f|
-  h4 = t('.step-1')
-  p
+= content_for :guide_title do
+  h3 style="font-size: 20px;"
+    i.fa.fa-user
+    span = current_user.email
+
+= content_for :guide do
+  ul.list-group
+    - if current_user.admin?
+      span.label.label-warning ADMIN
+    - current_user.tag_list.each do |key|
+      span.label.label-info
+        = member_tag(key)
+  p.text-warning
+    == t('.safety_instruction')
+  /div id="coindesk-widget" data-size="mpu" data-align="left" style='padding-left: 5px'
+  div id="myticker_" style="display: none"
+    javascript:
+      function doIt(){
+      document.getElementById('myticker_').style.display = 'block';
+      }
+      var dellayMills = 3600;
+      function doItDelay() {
+      timeoutID = window.setTimeout(doIt, dellayMills);
+      }
+    iframe frameBorder="0" scrolling="no" allowtransparency="0" src="https://bitcoinaverage.com/en/widgets?widgetType=price&bgcolor=#FFFFFF&bwidth=1&bcolor=#CCCCCC&cstyle=round&fsize=16px&ffamily=arial&fcolor=#000000&bgTransparent=solid&chartStyle=none&lastUpdateTime=none&currency0=EUR&total=1" style="width:310px; height:65px; overflow:hidden; background-color:transparent !important;"
+    iframe frameBorder="0" scrolling="no" allowtransparency="0" src="https://bitcoinaverage.com/en/widgets?widgetType=conversion&bgcolor=#FFFFFF&bwidth=1&bcolor=#CCCCCC&cstyle=round&fsize=16px&ffamily=arial&fcolor=#000000&bgTransparent=solid&chartStyle=none&lastUpdateTime=none&currency0=EUR&total=1" style="width:310px; height:220px; overflow:hidden; background-color:transparent !important;" onload="doItDelay()"
+  /div class="btcwdgt-price" style="padding-left: 5px" bw-cur="eur"
+    javascript:
+      (function(b,i,t,C,O,I,N) {
+        window.addEventListener('load',function() {
+          if(b.getElementById(C))return;
+          I=b.createElement(i),N=b.getElementsByTagName(i)[0];
+          I.src=t;I.id=C;N.parentNode.insertBefore(I, N);
+        },false)
+      })(document,'script','https://widgets.bitcoin.com/widget.js','btcwdgt');
+    /javascript:
+      document.write("<" + "script src='https://widget.coindesk.com/bpiticker/coindesk-widget.min.js'>" + "<" + "/script>");
+    /p = 'test message here version 2'
+.page-title.w style=('margin:0px;')
+  .s-content
+    .container-fluid
+      .fl
+        span.fs24.fw700.b-color.t-up User profile
+      .fr
+        - if current_user.id_document_verified?
+          span.un-green-but VERIFIED
+        - else
+          span.un-red-but UNVERIFIED
+.vlb-bg.pt25.pb25
+  .s-content
+    .container-fluid
+      .settings-switcher.cf
+        .item.act Edit profile/Settings
+        = link_to "Verification", verify_sms_auth_path, {:class => "item", :style =>'color:black;border-radius:0px;'}
+        .item Security
+      .rb7.w-bg
+        .settings-title
+          | 2-Step Authorization
+        .pl20.pr20.pt15.pb25
+          .row.form-line
+            = simple_form_for @google_auth, as: 'google_auth', url: verify_google_auth_path do |f|
+              .col-xs-4
+                .auth-step
+                  | 1
+                .mt10.tac
+                  | Install
+                  font.fw700 Google authentificator
+                  | on you phone
+                  .opacity5 Protected actions: Login, withdrawal, trading
+                .tac.mt15
+                  .dib.mr5
+                    a href='https://itunes.apple.com/cn/app/google-authenticator/id388497605?mt=8'
+                      img alt="" src="../img/app_mac.png" /
+                  .dib
+                    a href='https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2'
+                      img alt="" src="../img/app_google.png" /
+              .col-xs-4
+                .auth-step
+                  | 2
+                .mt10.tac
+                  
+                  .dib.vam
+                    = qr_tag(@google_auth.uri)
+                  .dib.ml15.tal.vam style="width:70%;"
+                    | Open Google authentification
+                    br/
+                    | and enter code manually:
+                    .auth-code.mt3 
+                      div
+                        .input-group
+                          input#google_auth_otp_secret.string.required.readonly.form-control.upcase name="google_auth[otp_secret]" readonly="readonly" type="text" value="rawh7u5qxuhgkeea" /
+                          span.input-group-btn
+                            a.btn.btn-default href="/verify/google_auth.app?refresh=true" 
+                              i.fa.fa-refresh
+
+              .col-xs-4
+                .auth-step
+                  | 3
+                .mt10.tac
+                  | Input the number you get:
+                .tac.mt15
+                  .dib
+                    input.acc-input.auth-code-input placeholder=("Enter code") type="text" /
+                    
+                  .dib.ml10
+                    .green-but.w.auth-code-but
+                      input.green-but.w.auth-code-but cancel="/settings" name="commit" type="submit" value="Save" style="width:70%;border:none;background:none;"
+                        .icon
+                        
+      .rb7.w-bg.mt20
+        .settings-title.rel
+          | change password
+        .pl20.pr20.pt15.pb25
+          .row
+            .col-xs-8.mb12
+              .fs13.t-up.mb12 current password:
+              .row.form-line
+                .col-xs-6
+                  input.acc-input placeholder=("Current password") type="text" /
+              .fs13.t-up.mb12.mt20 new password:
+              .row.form-line
+                .col-xs-4
+                  input.acc-input placeholder=("New password") type="text" /
+                .col-xs-4
+                  input.acc-input placeholder=("Re-type new password") type="text" /
+              .green-but.w.mt25.w230
+                .icon
+                .name save password
+            .col-xs-4
+              .info-box.v.fs12.lh20.mt5
+                | Lorem ipsum dolor sit amet, consectetur adipiscing
+                | elit. Donec ut porttitor lorem, eget fringilla enim.
+                | Aenean iaculis ullamcorper euismod. Vestibulum
+                | quis facilisis lectus. Ut vitae sagittis eros, ut sagittis
+                | libero. Integer vestibulum neque nibh, nec
+                | ullamcorper purus sollicitudin non.
+
+/= simple_form_for @google_auth, as: 'google_auth', url: verify_google_auth_path do |f|
+  /h4 = t('.step-1')
+  /p
     span = t('.download-app')
     span == t('.guide-link')
 
-  h4 = t('.step-2')
-  p: span = t('.scan-qr-code')
+  /h4 = t('.step-2')
+  /p: span = t('.scan-qr-code')
 
-  = f.input :uri do
+  /= f.input :uri do
+  .dib.vam
     = qr_tag(@google_auth.uri)
+  .dib.ml15.tal.vam
+    | Open Google authentification
+    br/
+    | and enter code manually:
+    .auth-code.mt3
+      = f.input :otp_secret do
+        .input-group
+          = f.input_field :otp_secret, class: 'upcase', readonly: true
+          span.input-group-btn
+            a.btn.btn-default href='#{verify_google_auth_path(:app, refresh: true)}'
+              i.fa.fa-refresh
 
-  = f.input :otp_secret do
-    .input-group
-      = f.input_field :otp_secret, class: 'upcase', readonly: true
-      span.input-group-btn
-        a.btn.btn-default href='#{verify_google_auth_path(:app, refresh: true)}'
-          i.fa.fa-refresh
-
-  h4 = t('.step-3')
-  p: span = t('.enter-passcode')
+  /h4 = t('.step-3')
+  /p: span = t('.enter-passcode')
 
   = f.input :otp
 

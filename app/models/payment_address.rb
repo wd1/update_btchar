@@ -11,7 +11,6 @@ class PaymentAddress < ActiveRecord::Base
   def gen_address
     payload = { payment_address_id: id, currency: currency }
     attrs   = { persistent: true }
-    puts 'gen-address'
     AMQPQueue.enqueue(:deposit_coin_address, payload, attrs)
   end
 

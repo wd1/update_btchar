@@ -34,11 +34,24 @@
 
 <% content_for :scripts do %>
   <script type="text/javascript" charset="utf-8">
-    $(window).load(function(){
-      $.ajax({
-        type: "post",
-        url: "<%= gen_address_funds_path %>"
-      })
-    });
+      $(window).load(function () {
+          $.ajax({
+              type: "post",
+              url: "<%= gen_address_funds_path %>"
+          });
+
+          $(document).on('click', '.switcher-box .item', function () {
+
+              var group = $(this).closest('.switcher-box').data('group');
+
+              $('.switcher-box .item').removeClass('act');
+              $(this).addClass('act');
+
+              var index = $(this).index();
+
+              $('.' + group).hide();
+              $('.' + group).eq(index).show();
+          });
+      });
   </script>
 <% end %>

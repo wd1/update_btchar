@@ -94,7 +94,9 @@ input {margin:0 0 0 0; padding: 0 0 0 0;
     background: #f7f8fb;
 }
 
-
+.m-center{
+    margin: 0 auto;
+}
 .t-up{
     text-transform: uppercase;
 }

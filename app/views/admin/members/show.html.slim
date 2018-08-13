@@ -1,10 +1,10 @@
-.row
+/.row
   .col-xs-12
     = render partial: 'shared/admin/member', locals: {member: @member}
   .col-xs-12
     = render partial: 'shared/admin/member_accounts', locals: {member: @member}
 
-.row
+/.row
   .col-xs-24
     .panel.panel-info
       .panel-heading Accounts Log
@@ -33,3 +33,99 @@
           - t.column :fee, class: 'col-xs-2' do |x|
             code.text-info = x.fee
         = paginate @account_versions, test: 'asdf'
+.container-fluid.mt15
+  .row
+    .col-xs-12
+      .dib.blue-switch-box.mb20
+        = link_to "Members", admin_members_path,  class: 'item'
+        = link_to "Account settings", admin_members_settings_path,  class: 'item'
+      .a-box
+        .tac.mb15
+          .rb5.dib.a-dblue-bg.t-w-color.pt7.pb7.pl20.pr20
+            = @member[:display_name]?@member[:display_name]:" " +" - "+ @member[:email]
+        .tac
+          .blue-switch-box.dib
+            .item.act Main
+            .item wallets
+            .item transactions
+            .item documents
+            .item manage referrals
+        form action="" 
+          .row.mt10
+            .col-xs-4
+              .input-box.s100
+                .input-label Name:
+                input type="text" value="#{@member[:display_name]}"/
+            .col-xs-4
+              .input-box.s100
+                .input-label E-mail:
+                input type="text" value="#{@member[:email]}"/
+            .col-xs-4
+              .input-box.s100
+                .input-label Phone:
+                input type="text" value="#{@member[:phone_number]}"/
+          .row.mt10
+            .col-xs-4
+              .input-box.s100
+                .input-label Password:
+                input type="text" value="#{@member[:password]}"/
+            .col-xs-4
+              .input-box.s100
+                .input-label Status:
+                select name="" 
+                  option value=""  Active
+                  option value=""  Blocked
+            .col-xs-4
+              .input-box.s100
+                .input-label Upline:
+                input type="text" /
+          .row.mt30
+            .col-xs-4
+              .input-box.s100
+                .input-label Address:
+                input type="text" /
+            .col-xs-4
+              .input-box.s100
+                .input-label Country:
+                input type="text" /
+            .col-xs-4
+              .input-box.s100
+                .input-label State:
+                input type="text" /
+          .row.mt10
+            .col-xs-4
+              .input-box.s100
+                .input-label City:
+                input type="text" /
+            .col-xs-4
+              .input-box.s100
+                .input-label Pin code:
+                input type="text" /
+            .col-xs-4
+              .input-box.s100
+                .input-label DOB:
+                input type="text" /
+          .mt15.t-up
+            | Security
+          .row.mt10
+            .col-xs-4
+              .input-label.mb7 Enable 2fa:
+              .check-box.dib
+                input#u2fa_no checked="" name="u2fa" type="radio" /
+                label for="u2fa_no"  Enabled
+              .check-box.dib.ml15
+                input#u2fa_ci name="u2fa" type="radio" /
+                label for="u2fa_ci"  Disabled
+            .col-xs-4
+              .input-box.s100
+                .input-label Auto logout after N minutes
+                input type="text" /
+            .col-xs-4
+              .input-box.s100
+                .input-label IP address change control
+                select name="" 
+                  option value=""  x.0.0.0
+                  option value=""  x.x.0.0
+                  option value=""  x.x.x.0
+                  option value=""  x.x.x.x
+          input.a-form-but.green.mt20 type="submit" value="Save" /

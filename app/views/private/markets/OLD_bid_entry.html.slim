@@ -1,0 +1,35 @@
+.rb7.ovh.w-bg.grey-box style=("padding-bottom: 10px;")
+  .g-h-gradient.t-b-line
+  .b-t-bg.pt11.pb12.pl20.b-color.fw700.t-up.fs16 
+    | BUY 
+    span
+      = t(market.ask['currency'])
+  /.p20
+  #bid_entry.panel.panel-default.entry-right style=("margin:auto;border:none;width:95%;")
+    .panel-body
+      = form_for [market, order], :remote => true do |f|
+        = f.hidden_field :ord_type
+        .input-group.price
+          label.input-group-addon = t('.price')
+          span.label.label-danger.hint-price-disadvantage
+          = f.text_field :price, class: 'form-control'
+          span.input-group-addon = t(market.bid['currency'], scope: 'market.currency')
+        .input-group.amount
+          label.input-group-addon = t('.amount')
+          = f.text_field :origin_volume, class: 'form-control'
+          span.input-group-addon = t(market.ask['currency'], scope: 'market.currency')
+        .input-group.total
+          label.input-group-addon = t('.total')
+          span.label.label-info.hint-positions
+          = f.text_field :total, class: 'form-control'
+          span.input-group-addon = t(market.bid['currency'], scope: 'market.currency')
+        .input-group.amount
+          label.input-group-addon = t('.fee')
+          = text_field_tag :fee, '', id: 'order_bid_fee', disabled: 'disabled', class: 'form-control'
+          span.input-group-addon = t(market.bid['currency'], scope: 'market.currency')
+        = render partial: 'balance', locals: {currency: t(market.bid['currency'], scope: 'market.currency')}
+        .tac.mt25
+          .green-but.w style=("width:180px;")
+            .icon
+            button.name  style=("style=width: 60%;border: none;background:none;margin-right: 0px;") type="submit" = t('.action', currency: t(market.ask['currency'], scope: 'market.currency'))
+    = render partial: 'mask'

@@ -10,6 +10,7 @@ html lang="en"
     = stylesheet_link_tag "basic"
     = stylesheet_link_tag "style"
     = javascript_include_tag "jquery-3.3.1.min"
+    = javascript_include_tag "jcarousel"
     = javascript_include_tag "script"
     = javascript_include_tag "application"
     = javascript_include_tag "locales/#{I18n.locale}"
@@ -19,9 +20,10 @@ html lang="en"
     = render 'shared/meta'
     = csrf_meta_tags
 
-  body id='#{body_id}' data-lang="#{locale_name}"
+  body id='#{body_id}' data-lang="#{locale_name}" style="font-family: sans-serif;"
     = render 'shared/alert'
     - if !current_page?(signup_path) and !current_page?(center_support_path) and request.fullpath!="/auth/identity/register"
+      
       #wrap style=("background: url(../img/stars.png) 0 0, url(../img/lb_light.png) 0 100% no-repeat, url(../img/rt_light.png) 100% 0 no-repeat, #1e234d;margin-bottom:0px;")
         - if content_for?(:header)
           = yield(:header)

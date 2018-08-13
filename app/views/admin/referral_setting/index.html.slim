@@ -1,0 +1,62 @@
+.container-fluid.mt15
+  .row
+    .col-xs-12
+      .a-box
+        .fs13.fw700.t-up.b-color.mb10 referral settings
+        div
+          .dib.vam Status:
+          .check-box.dib.ml15
+            input#sts_check_box_en checked="" type="checkbox" /
+            label for="sts_check_box_en"  Enabled
+          .check-box.dib.ml15
+            input#sts_check_box_d type="checkbox" /
+            label for="sts_check_box_d"  Disabled
+        .mt10
+          .input-box.s5
+            .input-label Referral link name:
+            input type="text" /
+        .mt10
+          .dib.blue-switch-box.vam
+            .item.act standarD user
+            .item professional
+            .item representative
+          .a-form-but.grey.vam.ml20 Add new type
+        .mt10
+          .ref-param-line
+            .input-box.s1
+              .input-label Level:
+              input type="text" /
+            .input-box.s2
+              .input-label Commission from deposit:
+              input type="text" /
+              .unit %
+            .input-box.s2
+              .input-label Commission from orders:
+              input type="text" /
+              .unit %
+            .action.add
+        .mt10
+          .a-form-but.green Save
+        .table-box.mt20
+          table.standard-table.admin-table
+            tr.title
+              td ID
+              td Login
+              td Status
+              td total referrals
+              td total commission
+            /- @all.each do |c|
+              tr.item
+                td.fs12 186342
+                td bhuas8@gmail.com
+                td
+                  .status-button.a-green-bg Complete
+                td 156
+                td $9083.40
+          .pagination.mt20
+            a.item.act href=""  1
+            a.item href=""  2
+            a.item href=""  3
+            a.item href=""  4
+            a.item href=""  5
+            a.item href=""  6

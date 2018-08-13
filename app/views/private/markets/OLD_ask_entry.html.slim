@@ -1,0 +1,71 @@
+.rb7.ovh.w-bg.grey-box style=("padding-bottom: 10px;")
+  .g-h-gradient.t-b-line
+  .b-t-bg.pt11.pb12.pl20.b-color.fw700.t-up.fs16 
+    | SELL 
+    span
+      = t(market.ask['currency'])
+  /.p20
+  #ask_entry.panel.panel-default.entry-left  style=("margin:auto;border:none;width:95%;")
+    .panel-body
+      = form_for [market, order], :remote => true do |f|
+        = f.hidden_field :ord_type
+        .input-group.price
+          label.input-group-addon = t('.price')
+          span.label.label-danger.hint-price-disadvantage
+          = f.text_field :price, class: 'form-control'
+          span.input-group-addon = t(market.bid['currency'], scope: 'market.currency')
+        .input-group.amount
+          label.input-group-addon = t('.amount')
+          span.label.label-info.hint-positions
+          = f.text_field :origin_volume, class: 'form-control'
+          span.input-group-addon = t(market.ask['currency'], scope: 'market.currency')
+        .input-group.total
+          label.input-group-addon = t('.total')
+          = f.text_field :total, class: 'form-control'
+          span.input-group-addon = t(market.bid['currency'], scope: 'market.currency')
+        .input-group.amount 
+          label.input-group-addon = t('.fee')
+          = text_field_tag :fee, '', id: 'order_ask_fee', disabled: 'disabled', class: 'form-control'
+          span.input-group-addon = t(market.bid['currency'], scope: 'market.currency')
+        = render partial: 'balance', locals: {currency: t(market.ask['currency'], scope: 'market.currency')}
+        .tac.mt25
+          .green-but.w style=("width:180px;")
+            .icon
+            /.name BUY ETH
+            button.name type="submit" style=("style=width: 60%;border: none;background:none;margin-right: 0px;") = t('.action', currency: t(market.ask['currency'], scope: 'market.currency'))
+    = render partial: 'mask'
+  /form.buy-curr-form action="" 
+    .row.mb15
+      .col-xs-5.rel.label-box
+        .label Amount:
+      .col-xs-7.input-box
+        input type="text" /
+        .curr-placeholder ETH
+    .row.mb15
+      .col-xs-5.rel.label-box
+        .label Price:
+      .col-xs-7.input-box
+        input type="text" /
+        .curr-placeholder BTC
+    .row.mb15.mt30
+      .col-xs-5.rel.label-box
+        .label Total:
+      .col-xs-7.input-box
+        input.inactive type="text" /
+        .curr-placeholder BTC
+    .row.mb15
+      .col-xs-5.rel.label-box
+        .label Commission:
+      .col-xs-7.input-box
+        input.inactive type="text" /
+        .curr-placeholder BTC
+    .row.mb15
+      .col-xs-5.rel.label-box
+        .label Available balance:
+      .col-xs-7.input-box
+        input.inactive type="text" /
+        .curr-placeholder BTC
+    .tac.mt25
+      .green-but.w
+        .icon
+        .name BUY ETH

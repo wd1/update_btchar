@@ -1,0 +1,43 @@
+.container-fluid.mt15
+  .row
+    .col-xs-12
+      .a-box
+        .fs13.fw700.t-up.b-color.mb10 security
+        div
+          .dib.vam Confirm order:
+          .check-box.dib.ml15
+            input#co_no checked="" name="co" type="radio" /
+            label for="co_no"  No
+          .check-box.dib.ml15
+            input#co_em name="co" type="radio" /
+            label for="co_em"  By e-mail
+          .check-box.dib.ml15
+            input#co_ph name="co" type="radio" /
+            label for="co_ph"  By phone
+        .mt10
+          .dib.vam Confirm wirhdrawal:
+          .check-box.dib.ml15
+            input#cw_no checked="" name="cw" type="radio" /
+            label for="cw_no"  No
+          .check-box.dib.ml15
+            input#cw_em name="cw" type="radio" /
+            label for="cw_em"  By e-mail
+          .check-box.dib.ml15
+            input#cw_ph name="cw" type="radio" /
+            label for="cw_ph"  By phone
+        .mt10
+          .dib.vam Use 2fa if:
+          .check-box.dib.ml15
+            input#u2fa_no checked="" name="u2fa" type="radio" /
+            label for="u2fa_no"  No
+          .check-box.dib.ml15
+            input#u2fa_ci name="u2fa" type="radio" /
+            label for="u2fa_ci"  Change IP
+          .check-box.dib.ml15
+            input#u2fa_cb name="u2fa" type="radio" /
+            label for="u2fa_cb"  Change Browser
+          .check-box.dib.ml15
+            input#u2fa_cicb name="u2fa" type="radio" /
+            label for="u2fa_cicb"  Change IP or browser
+        .mt20
+          .a-form-but.green Save

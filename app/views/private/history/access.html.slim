@@ -28,83 +28,27 @@ div style=("background:white;height:930px;")
     .s-content
       .container-fluid
         table.tb-data
-          tr.title
-            td Date
-            td Ip address
-            td browser
-            td action
-          tr.data
-            td 22 Jan, 2017 15:12
-            td 145.172.11.56
-            td browser
-            td action
-          tr.data.even
-            td 22 Jan, 2017 15:12
-            td 145.172.11.56
-            td browser
-            td action
-          tr.data
-            td 22 Jan, 2017 15:12
-            td 145.172.11.56
-            td browser
-            td action
-          tr.data.even
-            td 22 Jan, 2017 15:12
-            td 145.172.11.56
-            td browser
-            td action
-          tr.data
-            td 22 Jan, 2017 15:12
-            td 145.172.11.56
-            td browser
-            td action
-          tr.data.even
-            td 22 Jan, 2017 15:12
-            td 145.172.11.56
-            td browser
-            td action
-          tr.data
-            td 22 Jan, 2017 15:12
-            td 145.172.11.56
-            td browser
-            td action
-          tr.data.even
-            td 22 Jan, 2017 15:12
-            td 145.172.11.56
-            td browser
-            td action
-          tr.data
-            td 22 Jan, 2017 15:12
-            td 145.172.11.56
-            td browser
-            td action
-          tr.data.even
-            td 22 Jan, 2017 15:12
-            td 145.172.11.56
-            td browser
-            td action
-          tr.data
-            td 22 Jan, 2017 15:12
-            td 145.172.11.56
-            td browser
-            td action
-          tr.data.even
-            td 22 Jan, 2017 15:12
-            td 145.172.11.56
-            td browser
-            td action
+          - @current_user.signup_histories.each do |signup_history|
+            tr.data
+              td = signup_history.created_at
+              td = signup_history.ip
+              td = signup_history.ua
+              td action
+              /.mt1
+                | Your account has been logged in with 
+                = signup_history.ua + " on " + signup_history.ip
         .pagination.mt30.cf
           .item 1
-          .dotted ...
-          .item 8
-          .item 9
-          .item 10
-          .item 11
-          .item.act 12
-          .item 13
-          .item 14
-          .item 15
-          .item 16
-          .item 17
-          .dotted ...
-          .item 45
+          /.dotted ...
+          /.item 8
+          /.item 9
+          /.item 10
+          /.item 11
+          /.item.act 12
+          /.item 13
+          /.item 14
+          /.item 15
+          /.item 16
+          /.item 17
+          /.dotted ...
+          /.item 45

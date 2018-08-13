@@ -111,8 +111,8 @@ header #languages {
   li > a{ padding-top: 8px; }
 }
 .navbar {
-  min-height: 98px;
-  padding: 17px;
+  height: 70px !important;
+  padding: 0px 17px;
   margin-bottom: 0px;
 }
 
@@ -127,6 +127,7 @@ ul.nav.navbar-nav.navbar-right li {
     margin-top: 9px;
     margin: 8px;
 }
+ul.nav.navbar-nav.navbar-right li a span {text-transform: lowercase;}
 .navbar-nav > li > a {
   padding-top: 9px;
   padding-bottom: 15px;
@@ -271,7 +272,8 @@ body{
   float: left;
   //padding-left: 260px;
   position: relative;
-  top: 14px;
+  left: 20px;
+  top: 17px;
 }
 header.navbar.navbar-default.navbar-static-top {
   // position: fixed !important;
@@ -287,15 +289,25 @@ a.index_menu_item:hover {
   color: #51d86f;
   text-decoration: none;
 }
-.navbar-nav > li > a > span, .navbar-nav > li > a > i {
+.navbar-nav > li > a > span{
   text-transform: uppercase;
   color: #ffffff;
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: 300;
 }
+
+.navbar-nav > li > a > i {
+  text-transform: uppercase;
+  color: #ffffff;
+  font-size: 16px;
+
+}
+
+
 .navbar-nav > li > a:hover > span {
   text-transform: uppercase;
   color: #ffffff;
-  font-size: 14px;
+  font-size: 16px;
 }
 ul.dropdown-menu {
   background-color: black;

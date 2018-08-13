@@ -29,7 +29,8 @@ BORDER_WIDTH = 1
       window_h = $(@).height()
       $('.content').height(window_h - navbar_h)
 
-      $('#candlestick').height(window_h - navbar_h - gutter_3x)
+      # $('#candlestick').height(window_h - navbar_h - gutter_3x)
+      $('#candlestick').height(447)
 
       order_h = window_h - navbar_h - entry_h - depths_h - my_orders_h - ticker_h - gutter_6x - 2*BORDER_WIDTH
       # $('#order_book').height(order_h)

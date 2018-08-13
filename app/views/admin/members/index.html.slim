@@ -1,40 +1,116 @@
-.row
-  .panel.panel-primary
-    .panel-heading
-      span = t('.search')
-    .panel-body
-      = form_tag admin_members_path, method: :get do |f|
-        .col-xs-3 = select_tag :search_field, options_for_select([ \
-            [t('.email'), 'email'],                                \
-            [t('.name'),  'name'],                                 \
-            [t('.phone'), 'phone_number'],                         \
-            [t('.wallet_address'), 'wallet_address'],              \
-          ], @search_field)
-        .col-xs-4 = text_field_tag :search_term, @search_term
-        .col-xs-3.col-xs-offset-1 = submit_tag t('.search')
+/.container-fluid.mt15
+  .row
+    .panel.panel-primary
+      .panel-heading
+        span = t('.search')
+      .panel-body
+        = form_tag admin_members_path, method: :get do |f|
+          .col-xs-3 = select_tag :search_field, options_for_select([ \
+              [t('.email'), 'email'],                                \
+              [t('.name'),  'name'],                                 \
+              [t('.phone'), 'phone_number'],                         \
+              [t('.wallet_address'), 'wallet_address'],              \
+            ], @search_field)
+          .col-xs-4 = text_field_tag :search_term, @search_term
+          .col-xs-3.col-xs-offset-1 = submit_tag t('.search')
 
-.row
-  .panel.panel-primary
-    .panel-heading
-      span = t('.members')
-    .panel-body
-      = table_for(@members, class: 'table table-condensed table-hover') do |t|
-        - t.column :id, class: 'col-xs-1'
-        - t.column :email, class: 'col-xs-2' do |x|
-          code.text-info = x.email
-        - t.column :created_at, class: 'col-xs-3'
-        - t.column :activated?, class: 'col-xs-1' do |x|
-          = yesno x.activated?
-        - t.column 'Disabled? (Web/API)', class: 'col-xs-1' do |x|
-          - text = x.disabled? ? 'Yes' : 'No'
-          = link_to text, toggle_admin_member_path(x), remote: true, method: :post, class: 'toggle-web'
-          | &nbsp;/&nbsp;
-          - text = x.api_disabled? ? 'Yes' : 'No'
-          = link_to text, toggle_admin_member_path(x, api: true), remote: true, method: :post, class: 'toggle-api'
-        - t.column :id_document_verified?, class: 'col-xs-2' do |x|
-          = x.id_document_verified? ? x.name : yesno(x.id_document_verified?)
-        - t.column :actions, class: 'col-xs-1' do |x|
-          = link_to t('actions.view'), url_for([:admin, x]), target: '_blank'
+  .row
+    .panel.panel-primary
+      .panel-heading
+        span = t('.members')
+      .panel-body
+        = table_for(@members, class: 'table table-condensed table-hover') do |t|
+          - t.column :id, class: 'col-xs-1'
+          - t.column :email, class: 'col-xs-2' do |x|
+            code.text-info = x.email
+          - t.column :created_at, class: 'col-xs-3'
+          - t.column :activated?, class: 'col-xs-1' do |x|
+            = yesno x.activated?
+          - t.column 'Disabled? (Web/API)', class: 'col-xs-1' do |x|
+            - text = x.disabled? ? 'Yes' : 'No'
+            = link_to text, toggle_admin_member_path(x), remote: true, method: :post, class: 'toggle-web'
+            | &nbsp;/&nbsp;
+            - text = x.api_disabled? ? 'Yes' : 'No'
+            = link_to text, toggle_admin_member_path(x, api: true), remote: true, method: :post, class: 'toggle-api'
+          - t.column :id_document_verified?, class: 'col-xs-2' do |x|
+            = x.id_document_verified? ? x.name : yesno(x.id_document_verified?)
+          - t.column :actions, class: 'col-xs-1' do |x|
+            = link_to t('actions.view'), url_for([:admin, x]), target: '_blank'
 
-      = paginate @members
-
+        = paginate @members
+.container-fluid.mt15
+  .row
+    .col-xs-12
+      .dib.blue-switch-box.mb20
+        = link_to "Members", admin_members_path,  class: 'item'
+        = link_to "Account settings", admin_members_settings_path,  class: 'item'
+      .a-box
+        .transactions.filter-box
+          form action="" 
+            .dib.input-box
+              .input-label Username:
+              input type="text" /
+            .dib.input-box
+              .input-label E-mail:
+              input type="text" /
+            .dib.input-box
+              .input-label Wallet:
+              input type="text" /
+            .dib.input-box
+              .input-label User ID:
+              input type="text" /
+            .dib.input-box
+              .input-label Mobile number:
+              input type="text" /
+            .dib.input-box
+              .input-label Status:
+              select name="" 
+                option value=""  all
+                option value=""  complete
+            input.a-form-but.green.mr8 type="submit" value="Search" /
+            input.a-form-but.grey type="submit" value=("Show all") /
+        .table-box.mt20
+          table.standard-table.admin-table
+            tr.title
+              td ID
+              td user
+              td name
+              td Status
+              td Referer
+              td Registration date
+            - @members.each do |member|
+              tr.item
+                td.fs12 #{member[:id]}
+                td 
+                  a href="members/#{member[:id]}" #{member[:email]}
+                td #{member[:display_name]}
+                td
+                  - if member[:activated]
+                    .status-button.a-green-bg active
+                  - if member[:disabled]
+                    .status-button.a-red-bg disabled
+                td 
+                td #{member[:created_at]}
+            /tr.item
+              td.fs12 186342
+              td bhuas8@gmail.com
+              td Babu Lal
+              td
+                .status-button.a-black-bg blocked
+              td Admin(test@gmail.com)
+              td 12 Apr, 2018 14:12
+            /tr.item
+              td.fs12 186342
+              td bhuas8@gmail.com
+              td Babu Lal
+              td
+                .status-button.a-grey-bg pending
+              td Admin(test@gmail.com)
+              td 12 Apr, 2018 14:12
+          .pagination.mt20
+            a.item.act href=""  1
+            a.item href=""  2
+            a.item href=""  3
+            a.item href=""  4
+            a.item href=""  5
+            a.item href=""  6

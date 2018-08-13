@@ -12,15 +12,15 @@ class SessionsController < ApplicationController
   end
 
   def create
-    if !require_captcha? || simple_captcha_valid?
-      @member = Member.from_auth(auth_hash)
-    end
-
+    # if !require_captcha? || simple_captcha_valid?
+    #   @member = Member.from_auth(auth_hash)
+    # end
+    @member = Member.from_auth(auth_hash)
     if @member
-      if @member.disabled?
-        increase_failed_logins
-        redirect_to signin_path, alert: t('.disabled')
-      else
+      # if @member.disabled?
+      #   increase_failed_logins
+      #   redirect_to signin_path, alert: t('.disabled')
+      # else
         clear_failed_logins
         reset_session rescue nil
         session[:member_id] = @member.id
@@ -28,7 +28,7 @@ class SessionsController < ApplicationController
         save_signup_history @member.id
         MemberMailer.notify_signin(@member.id).deliver if @member.activated?
         redirect_back_or_settings_page
-      end
+      # end
     else
       increase_failed_logins
       redirect_to signin_path, alert: t('.error')

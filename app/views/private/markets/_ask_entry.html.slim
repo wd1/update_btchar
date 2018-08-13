@@ -1,5 +1,5 @@
 .rb7.ovh.w-bg.grey-box style=("padding-bottom: 10px;")
-  .g-h-gradient.t-b-line
+  .r-h-gradient.t-b-line
   .b-t-bg.pt11.pb12.pl20.b-color.fw700.t-up.fs16 
     | SELL 
     span
@@ -27,6 +27,7 @@
           label.input-group-addon = t('.fee')
           = text_field_tag :fee, '', id: 'order_ask_fee', disabled: 'disabled', class: 'form-control'
           span.input-group-addon = t(market.bid['currency'], scope: 'market.currency')
+        
         = render partial: 'balance', locals: {currency: t(market.ask['currency'], scope: 'market.currency')}
         .tac.mt25
           .green-but.w style=("width:180px;")

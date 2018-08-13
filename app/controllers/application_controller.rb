@@ -121,6 +121,7 @@ class ApplicationController < ActionController::Base
 
     gon.pusher = {
       key:       ENV['PUSHER_KEY'],
+      cluster:   ENV['PUSEER_CLUSTER'],
       wsHost:    ENV['PUSHER_HOST']      || 'ws.pusherapp.com',
       wsPort:    ENV['PUSHER_WS_PORT']   || '80',
       wssPort:   ENV['PUSHER_WSS_PORT']  || '443',
@@ -193,8 +194,7 @@ class ApplicationController < ActionController::Base
       }
       memo
     end
-    #gon.fiat_currency = Currency.first.code
-    gon.fiat_currency = 'usd'
+    gon.fiat_currency = Currency.first.code
 
     gon.tickers = {}
     Market.all.each do |market|

@@ -7,6 +7,7 @@ app.controller 'DepositsController', ['$scope', '$stateParams', '$http', '$filte
   $scope.account = Account.findBy('currency', $scope.currency)
   $scope.deposit_channel = DepositChannel.findBy('currency', $scope.currency)
   console.log($scope.currency)
+
   @createDeposit = (currency) ->
     depositCtrl = @
     deposit_channel = DepositChannel.findBy('currency', currency)
@@ -50,5 +51,6 @@ app.controller 'DepositsController', ['$scope', '$stateParams', '$http', '$filte
     setTimeout(->
       $.publish 'deposit_address:create'
     , 1000)
+
 
 ]

@@ -99,6 +99,7 @@ Peatio::Application.routes.draw do
     get '/history/access' => 'history#access', as: :access_history
     get '/history/affiliate' => 'history#affiliate', as: :affiliate_history
     get '/history/commission' => 'history#commission', as: :commission_history
+    get '/history/offer' => 'history#offer', as: :offer_special
     get '/support/center' => 'support#center', as: :center_support
 
     resources :markets, :only => :show, :constraints => MarketConstraint do
@@ -132,7 +133,17 @@ Peatio::Application.routes.draw do
   post '/webhooks/tx' => 'webhooks#tx'
   post '/webhooks/eth' => 'webhooks#eth'
   draw :admin
-
+  get '/admin/transaction' => 'admin/transaction#index', as: :admin_transaction
+  get '/admin/withdrawal_request' => 'admin/withdrawal_request#index', as: :admin_withdrawal_request
+  get '/admin/bonus' => 'admin/bonus#index', as: :admin_bonus
+  get '/admin/penalty' => 'admin/penalties#index', as: :admin_penalty
+  get '/admin/pending_deposits' => 'admin/pending_deposits#index', as: :admin_pending_deposits
+  get '/admin/payment_system' => 'admin/payment_system#index', as: :admin_payment_system
+  get '/admin/referral_setting' => 'admin/referral_setting#index', as: :admin_referral_setting
+  get '/admin/security' => 'admin/security#index', as: :admin_security
+  get '/admin/promos' => 'admin/promos#index', as: :admin_promos
+  get '/admin/trade_history' => 'admin/trade_history#index', as: :admin_trade_history
+  get '/admin/members_settings' => 'admin/members_settings#index', as: :admin_members_settings
   mount APIv2::Mount => APIv2::Mount::PREFIX
 
 end

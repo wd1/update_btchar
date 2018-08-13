@@ -14,11 +14,11 @@
         - if content_for?(:guide)
           = yield(:guide)
       #content.col-xs-16
-        = render 'shared/flash'
+        /= render 'shared/flash'
         = yield
     - if content_for?(:secondary)
       = yield(:secondary)
 /- if content_for?(:after)
   = yield(:after)
-= render 'shared/flash'
+/= render 'shared/flash'
 = yield

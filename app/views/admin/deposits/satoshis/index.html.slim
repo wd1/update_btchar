@@ -1,4 +1,4 @@
-= table_for(@satoshis, class: 'table table-condensed table-hover') do |t|
+/= table_for(@satoshis, class: 'table table-condensed table-hover') do |t|
   - t.column :txid do |x|
     a href='#{x.blockchain_url}' target='_blank'
       code.text-info = x.txid.truncate(36)
@@ -16,4 +16,85 @@
       span = ' / '
       = link_to t('.accept'), url_for([:admin, x]), method: 'PATCH', confirm: t('.accept_confirm')
 
-.pull-right = paginate @satoshis
+/.pull-right = paginate @satoshis
+/= table_for(@satoshis, class: 'table table-condensed table-hover') do |t|
+  - t.column :txid do |x|
+    a href='#{x.blockchain_url}' target='_blank'
+      code.text-info = x.txid.truncate(36)
+  - t.column :created_at
+  - t.column :currency_obj_key_text
+  - t.column :member_name do |x|
+    = link_to x.member_name, url_for([:admin, x.member]), target: '_blank'
+  - t.column :amount do |x|
+    code.text-info = x.amount
+  - t.column :confirmations do |x|
+    span.badge = x.confirmations
+  - t.column :state_and_actions do |x|
+    span = x.aasm_state_text
+    - if x.may_accept?
+      span = ' / '
+      = link_to t('.accept'), url_for([:admin, x]), method: 'PATCH', confirm: t('.accept_confirm')
+
+/.pull-right = paginate @satoshis
+.container-fluid.mt15
+  .row
+    .col-xs-12
+      .a-box
+        .fs13.fw700.t-up.b-color.mb10 Deposit history
+        .filter-box
+          form action="" 
+            .dib.input-box
+              .input-label Operation ID:
+              input type="text" /
+            .dib.input-box
+              .input-label User:
+              input type="text" /
+            .dib.input-box
+              .input-label Batch:
+              input type="text" /
+            .dib.input-box
+              .input-label Payment system:
+              select name="" 
+                option value=""  all
+                option value=""  Bitcoin
+            .dib.input-box
+              .input-label Currency:
+              select name="" 
+                option value=""  all
+                option value=""  BTC
+            .dib.input-box
+              .input-label Status:
+              select name="" 
+                option value=""  all
+                option value=""  complete
+            input.a-form-but.green.mr8 type="submit" value="Search" /
+            input.a-form-but.grey type="submit" value=("Show all") /
+        .table-box.mt20
+          table.standard-table.admin-table
+            tr.title
+              td ID
+              td user
+              td Amount
+              td Payment system
+              td Currency
+              td status
+              td Batch
+              td memo
+            - @satoshis.each do |c|
+              tr.item
+                td.fs12 186342
+                td bhuas8@gmail.com
+                td.fw700 1.09563465
+                td BitCoin
+                td BTC
+                td
+                  .status-button.a-green-bg Complete
+                td 58e455025954a33f9ce432df...
+                td Deposit user bhuas Bitcoin
+          .pagination.mt20
+            a.item.act href=""  1
+            a.item href=""  2
+            a.item href=""  3
+            a.item href=""  4
+            a.item href=""  5
+            a.item href=""  6

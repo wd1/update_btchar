@@ -1,0 +1,73 @@
+/- unless @one_alls.empty?
+  .panel.panel-primary
+    .panel-heading: span = t('.one')
+    = render partial: 'table', locals: {alls: @one_alls}
+/- unless @all_alls.empty?
+  .panel.panel-success
+    .panel-heading: span = t('.all')
+    = render partial: 'table', locals: {alls: @all_alls}
+
+/- if @all_alls.empty? and @one_alls.empty?
+  h3.text-info.text-center = t('.empty')
+.container-fluid.mt15
+  .row
+    .col-xs-12
+      .a-box
+        .fs13.fw700.t-up.b-color.mb10 withdrawal history
+        .filter-box
+          form action="" 
+            .dib.input-box
+              .input-label Operation ID:
+              input type="text" /
+            .dib.input-box
+              .input-label User:
+              input type="text" /
+            .dib.input-box
+              .input-label Batch:
+              input type="text" /
+            .dib.input-box
+              .input-label Payment system:
+              select name="" 
+                option value=""  all
+                option value=""  Bitcoin
+            .dib.input-box
+              .input-label Currency:
+              select name="" 
+                option value=""  all
+                option value=""  BTC
+            .dib.input-box
+              .input-label Status:
+              select name="" 
+                option value=""  all
+                option value=""  complete
+            input.a-form-but.green.mr8 type="submit" value="Search" /
+            input.a-form-but.grey type="submit" value=("Show all") /
+        .table-box.mt20
+          table.standard-table.admin-table
+            tr.title
+              td ID
+              td user
+              td Amount
+              td Payment system
+              td Currency
+              td status
+              td Batch
+              td memo
+            - @alls.each do |c|
+              tr.item
+                td.fs12 186342
+                td bhuas8@gmail.com
+                td.fw700 1.09563465
+                td BitCoin
+                td BTC
+                td
+                  .status-button.a-green-bg Complete
+                td 58e455025954a33f9ce432df...
+                td Withdrawal to user bhuas Bitcoin
+          .pagination.mt20
+            a.item.act href=""  1
+            a.item href=""  2
+            a.item href=""  3
+            a.item href=""  4
+            a.item href=""  5
+            a.item href=""  6
