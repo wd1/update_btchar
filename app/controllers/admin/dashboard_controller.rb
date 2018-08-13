@@ -8,6 +8,10 @@ module Admin
       @register_count = Member.count
       @deposits_all = Deposit.group("DATE(created_at)").count("DATE(created_at)").to_json
       @withdraws_all = Withdraw.group("DATE(created_at)").count("DATE(created_at)").to_json
+      @pending_deposit = Deposit.where(:aasm_state => 'submitting').count()
+      @pending_withdraw = Withdraw.where(:aasm_state => 'submitting').count()
+      @verification_request = IdDocument.where(:aasm_state => 'unverified').count()
+      @unverified_user = IdDocument.where(:aasm_state => 'unverified').count()
     end
   end
 end
