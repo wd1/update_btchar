@@ -143,7 +143,8 @@ javascript:
   var temp_despoits = $('#deposits_all').data('title');
   var temp_withdraws = $('#withdraws_all').data('title');
   var depositsData = [], withdrawsData = [];
-
+  temp_withdraws = {'2018-04-21': 1, '2018-04-22': 1, '2018-04-26': 1, '2018-04-27': 1, '2018-04-28': 1};
+  temp_despoits = {'2018-04-23': 2, '2018-04-24': 4, '2018-04-25': 2, '2018-04-26': 2, '2018-04-27': 2, '2018-04-28':2,'2018-04-29':2,'2018-04-30':4};
   $.each(temp_despoits, function(key, value) {
     depositsData.push([Date.parse(key), value]);
   })
@@ -151,6 +152,7 @@ javascript:
     withdrawsData.push([Date.parse(key), value]);
   })
   console.log(temp_withdraws);
+  console.log(temp_despoits);
   Highcharts.chart('container', {
 
     title: {
