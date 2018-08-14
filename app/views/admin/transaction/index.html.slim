@@ -67,7 +67,7 @@
                 td.fs12 Trade in 8436982
                 td
                   .status-button.a-green-bg Complete
-            - @deposit_history.each do |c|
+            /- @deposit_history.each do |c|
               tr.item
                 td.fs12 186342
                 td bhuas8@gmail.com
@@ -80,7 +80,7 @@
                 td.fs12 Trade in 8436982
                 td
                   .status-button.a-green-bg Complete
-            - @withdraw_history.each do |c|
+            /- @withdraw_history.each do |c|
               tr.item
                 td.fs12 186342
                 td bhuas8@gmail.com
@@ -95,8 +95,5 @@
                   .status-button.a-green-bg Complete
           .pagination.mt20
             a.item.act href=""  1
-            a.item href=""  2
-            a.item href=""  3
-            a.item href=""  4
-            a.item href=""  5
-            a.item href=""  6
+            - for i in (1..@trade_history.length/10)
+              a.item href=""  #{i+1}

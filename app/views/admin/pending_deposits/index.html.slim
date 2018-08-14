@@ -43,8 +43,5 @@
                   a.action-button.red href=""  Remove
           .pagination.mt20
             a.item.act href=""  1
-            a.item href=""  2
-            a.item href=""  3
-            a.item href=""  4
-            a.item href=""  5
-            a.item href=""  6
+            - for i in (1..@all.length/10)
+              a.item href=""  #{i+1}

@@ -87,6 +87,8 @@
                 td
                   - if member[:activated]
                     .status-button.a-green-bg active
+                  - else
+                    .status-button.a-red-bg unverified
                   - if member[:disabled]
                     .status-button.a-red-bg disabled
                 td 
@@ -109,8 +111,5 @@
               td 12 Apr, 2018 14:12
           .pagination.mt20
             a.item.act href=""  1
-            a.item href=""  2
-            a.item href=""  3
-            a.item href=""  4
-            a.item href=""  5
-            a.item href=""  6
+            - for i in (1..@members.length/10)
+              a.item href=""  #{i+1}
