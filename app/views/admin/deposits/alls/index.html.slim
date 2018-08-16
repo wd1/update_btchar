@@ -59,20 +59,22 @@
               td Payment system
               td Currency
               td status
-              td Batch
+              td Txid
               td memo
             - @alls.each do |c|
               tr.item
-                td.fs12 186342
-                td bhuas8@gmail.com
-                td.fw700 1.09563465
-                td BitCoin
-                td BTC
+                td.fs12 = c.id
                 td
-                  .status-button.a-green-bg Complete
-                td 58e455025954a33f9ce432df...
-                td Deposit user bhuas Bitcoin
+                  = link_to c.member_name, url_for([:admin, c.member]), target: '_blank'
+                td.fw700 = c.amount
+                td = c.currency
+                td = c.currency
+                td
+                  .status-button.a-green-bg = c.aasm_state
+                td = c.txid
+                td 
           .pagination.mt20
             a.item.act href=""  1
             - for i in (1..@alls.length/10)
               a.item href=""  #{i+1}
+.pull-right = paginate @alls
