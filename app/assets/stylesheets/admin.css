@@ -1,3 +1,23 @@
+ul.tabs{
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+ul.tabs li{
+    cursor: pointer;
+}
+
+ul.tabs li.current{
+    
+}
+
+.tab-content{
+    display: none;
+}
+
+.tab-content.current{
+    display: inherit;
+}
 @font-face {
     font-family: "Ubuntu";
     src: url("../font/UbuntuLight/ub.eot");

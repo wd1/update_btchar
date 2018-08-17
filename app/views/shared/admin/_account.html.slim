@@ -1,4 +1,4 @@
-.panel.panel-info
+/.panel.panel-info
   .panel-heading
     span = t('.account_info')
     span = " : "
@@ -11,3 +11,80 @@
       - if account.currency_obj.coin?
         = item_for t('.payment_address') do
           = account.payment_address.address
+- if !account.currency_obj.coin?
+  .col-xs-6 style="padding-bottom:10px;"
+    .send-form-section style="height: 410px;"
+      .fw700.t-up  = account.currency_text + ' Account info'
+      .balance-line.row.mt10
+        .col-xs-3
+          .item.green.t-w-color
+            .fs14.fw700.lh16 = account.amount
+            .opacity5 Balance
+        .col-xs-3
+          .item.blue.t-w-color
+            .fs14.fw700.lh16 = account.locked
+            .opacity5 On order
+        .col-xs-3
+          .item.red.t-w-color
+            .fs14.fw700.lh16 = account.locked
+            .opacity5 Pending
+        .col-xs-3
+          .item.grey
+            .fs14.fw700.lh16 = account.balance
+            .opacity5 Total
+      .mt15.t-up
+        | Bank details
+      .row.mt10
+        .col-xs-9
+          .input-box.s100
+            .input-label Name:
+            input type="text" /
+      .row.mt10
+        .col-xs-6
+          .input-box.s100
+            .input-label Account type:
+            input type="text" /
+        .col-xs-6
+          .input-box.s100
+            .input-label Account number:
+            input type="text" /
+      .row.mt10
+        .col-xs-6
+          .input-box.s100
+            .input-label IFSC code:
+            input type="text" /
+        .col-xs-6
+          .input-box.s100
+            .input-label Branch:
+            input type="text" /
+      input.a-form-but.green.mt15 type="submit" value="Save" /
+- else
+  .col-xs-6 style="padding-bottom:10px;"
+    .send-form-section style="height: 200px;"
+      .fw700.t-up = account.currency_text + ' Account info'
+      .balance-line.row.mt10
+        .col-xs-3
+          .item.green.t-w-color
+            .fs14.fw700.lh16 = account.amount
+            .opacity5 Balance
+        .col-xs-3
+          .item.blue.t-w-color
+            .fs14.fw700.lh16 = account.locked
+            .opacity5 On order
+        .col-xs-3
+          .item.red.t-w-color
+            .fs14.fw700.lh16 = account.locked
+            .opacity5 Pending
+        .col-xs-3
+          .item.grey
+            .fs14.fw700.lh16 = account.balance
+            .opacity5 Total
+      .mt15.t-up
+        | User address list
+      table.mt5.wallet-list
+        tr
+          - if account.payment_address.address
+            td = account.payment_address.address
+          - else
+            td 'No Payment Address yet'
+          td = account.payment_address.created_at

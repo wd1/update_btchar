@@ -109,7 +109,4 @@
                 .status-button.a-grey-bg pending
               td Admin(test@gmail.com)
               td 12 Apr, 2018 14:12
-          .pagination.mt20
-            a.item.act href=""  1
-            - for i in (1..@members.length/10)
-              a.item href=""  #{i+1}
+          = paginate @members

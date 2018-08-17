@@ -45,87 +45,219 @@
             = @member[:display_name]?@member[:display_name]:" " +" - "+ @member[:email]
         .tac
           .blue-switch-box.dib
-            .item.act Main
-            .item wallets
-            .item transactions
-            .item documents
-            .item manage referrals
-        form action="" 
-          .row.mt10
-            .col-xs-4
-              .input-box.s100
-                .input-label Name:
-                input type="text" value="#{@member[:display_name]}"/
-            .col-xs-4
-              .input-box.s100
-                .input-label E-mail:
-                input type="text" value="#{@member[:email]}"/
-            .col-xs-4
-              .input-box.s100
-                .input-label Phone:
-                input type="text" value="#{@member[:phone_number]}"/
-          .row.mt10
-            .col-xs-4
-              .input-box.s100
-                .input-label Password:
-                input type="text" value="#{@member[:password]}"/
-            .col-xs-4
-              .input-box.s100
+            ul.tabs style="margin: 0px;padding: 0px;list-style: none;"
+              li(class="item act"  data-tab="main") Main
+              li(class="item"  data-tab="wallets") wallets
+              li(class="item"  data-tab="transactions") transactions
+              li(class="item"  data-tab="documents") documents
+              li(class="item"  data-tab="referrals") referrals
+        div#main.tab-content.current
+          form action="" 
+            .row.mt10
+              .col-xs-4
+                .input-box.s100
+                  .input-label Name:
+                  input type="text" value="#{@member[:display_name]}"/
+              .col-xs-4
+                .input-box.s100
+                  .input-label E-mail:
+                  input type="text" value="#{@member[:email]}"/
+              .col-xs-4
+                .input-box.s100
+                  .input-label Phone:
+                  input type="text" value="#{@member[:phone_number]}"/
+            .row.mt10
+              .col-xs-4
+                .input-box.s100
+                  .input-label Password:
+                  input type="text" value="#{@member[:password]}"/
+              .col-xs-4
+                .input-box.s100
+                  .input-label Status:
+                  select name="" 
+                    option value=""  Active
+                    option value=""  Blocked
+              .col-xs-4
+                .input-box.s100
+                  .input-label Upline:
+                  input type="text" /
+            .row.mt30
+              .col-xs-4
+                .input-box.s100
+                  .input-label Address:
+                  input type="text" /
+              .col-xs-4
+                .input-box.s100
+                  .input-label Country:
+                  input type="text" /
+              .col-xs-4
+                .input-box.s100
+                  .input-label State:
+                  input type="text" /
+            .row.mt10
+              .col-xs-4
+                .input-box.s100
+                  .input-label City:
+                  input type="text" /
+              .col-xs-4
+                .input-box.s100
+                  .input-label Pin code:
+                  input type="text" /
+              .col-xs-4
+                .input-box.s100
+                  .input-label DOB:
+                  input type="text" /
+            .mt15.t-up
+              | Security
+            .row.mt10
+              .col-xs-4
+                .input-label.mb7 Enable 2fa:
+                .check-box.dib
+                  input#u2fa_no checked="" name="u2fa" type="radio" /
+                  label for="u2fa_no"  Enabled
+                .check-box.dib.ml15
+                  input#u2fa_ci name="u2fa" type="radio" /
+                  label for="u2fa_ci"  Disabled
+              .col-xs-4
+                .input-box.s100
+                  .input-label Auto logout after N minutes
+                  input type="text" /
+              .col-xs-4
+                .input-box.s100
+                  .input-label IP address change control
+                  select name="" 
+                    option value=""  x.0.0.0
+                    option value=""  x.x.0.0
+                    option value=""  x.x.x.0
+                    option value=""  x.x.x.x
+            input.a-form-but.green.mt20 type="submit" value="Save" /
+        div#wallets.tab-content.row.mt10
+          - @member.accounts.each do |account|
+            = render partial: 'shared/admin/account', locals: {account: account}
+        div#transactions.mt10.tab-content
+          .transactions.filter-box
+            form action="" 
+              .dib.input-box
+                .input-label Operation ID:
+                input type="text" /
+              .dib.input-box
+                .input-label User:
+                input type="text" /
+              .dib.input-box
+                .input-label Batch:
+                input type="text" /
+              .dib.input-box
+                .input-label Operation:
+                select name="" 
+                  option value=""  all
+                  option value=""  Deposit
+              .dib.input-box
+                .input-label Payment system:
+                select name="" 
+                  option value=""  all
+                  option value=""  Bitcoin
+              .dib.input-box
+                .input-label Currency:
+                select name="" 
+                  option value=""  all
+                  option value=""  BTC
+              .dib.input-box
+                .input-label Pair:
+                select name="" 
+                  option value=""  all
+                  option value=""  BTC/INR
+              .dib.input-box
                 .input-label Status:
                 select name="" 
-                  option value=""  Active
-                  option value=""  Blocked
-            .col-xs-4
-              .input-box.s100
-                .input-label Upline:
+                  option value=""  all
+                  option value=""  complete
+              input.a-form-but.green.mr8 type="submit" value="Search" /
+              input.a-form-but.grey type="submit" value=("Show all") /
+          .table-box.mt20
+            table.standard-table.admin-table
+              tr.title
+                td ID
+                td Amount
+                td Batch
+                td Operation
+                td Payment system
+                td Currency
+                td pair
+                td memo
+                td status
+              /tr.item
+                td.fs12 186342
+                td.fw700 1.09563465
+                td.fs12 58e455025954a33f9ce432df...
+                td SELL
+                td BitCoin
+                td BTC
+                td BTC/INR
+                td.fs12 Trade in 8436982
+                td
+                  .status-button.a-green-bg Complete
+            .pagination.mt20
+              a.item.act href=""  1
+        div#documents.row.mt10.tab-content
+          .col-xs-6
+            .send-form-section
+              .fw700.t-up Front image
+              .tac
+                .mb20.mt20
+                  img alt="" src="img/pancard_front.png" /
+                .dib
+                  .a-form-but.a-dblue-bg.t-up.mr3 Upload
+                  .a-form-but.a-red-bg.t-up.mr3 Remove
+                  .a-form-but.green.t-up download
+          .col-xs-6
+            .send-form-section
+              .fw700.t-up Back image
+              .tac
+                .mb20.mt20
+                  img alt="" src="img/pancard_back.png" /
+                .dib
+                  .a-form-but.a-dblue-bg.t-up.mr3 Upload
+                  .a-form-but.a-red-bg.t-up.mr3 Remove
+                  .a-form-but.green.t-up download
+        div#referrals.mt10.tab-content
+          .filter-box
+            form action="" 
+              .input-box.s5
+                .input-label Username:
                 input type="text" /
-          .row.mt30
-            .col-xs-4
-              .input-box.s100
-                .input-label Address:
-                input type="text" /
-            .col-xs-4
-              .input-box.s100
-                .input-label Country:
-                input type="text" /
-            .col-xs-4
-              .input-box.s100
-                .input-label State:
-                input type="text" /
-          .row.mt10
-            .col-xs-4
-              .input-box.s100
-                .input-label City:
-                input type="text" /
-            .col-xs-4
-              .input-box.s100
-                .input-label Pin code:
-                input type="text" /
-            .col-xs-4
-              .input-box.s100
-                .input-label DOB:
-                input type="text" /
-          .mt15.t-up
-            | Security
-          .row.mt10
-            .col-xs-4
-              .input-label.mb7 Enable 2fa:
-              .check-box.dib
-                input#u2fa_no checked="" name="u2fa" type="radio" /
-                label for="u2fa_no"  Enabled
-              .check-box.dib.ml15
-                input#u2fa_ci name="u2fa" type="radio" /
-                label for="u2fa_ci"  Disabled
-            .col-xs-4
-              .input-box.s100
-                .input-label Auto logout after N minutes
-                input type="text" /
-            .col-xs-4
-              .input-box.s100
-                .input-label IP address change control
-                select name="" 
-                  option value=""  x.0.0.0
-                  option value=""  x.x.0.0
-                  option value=""  x.x.x.0
-                  option value=""  x.x.x.x
-          input.a-form-but.green.mt20 type="submit" value="Save" /
+              input.a-form-but.green.mr8 type="submit" value="Search" /
+              input.a-form-but.grey type="submit" value=("Show all") /
+          .table-box.mt20
+            table.standard-table.admin-table
+              tr.title
+                td username
+                td status
+                td Registration date
+                td Last commission
+                td actions
+              tr.item
+                td 
+                td
+                  .status-button.a-green-bg
+                td 
+                td 
+                td
+                  a.action-button.red href=""  
+                  a.action-button.blue href=""  
+            .pagination.mt20
+              a.item.act href=""  1
+
+javascript:
+  $(document).ready(function(){
+	
+    $('ul.tabs li').click(function(){
+      var tab_id = $(this).attr('data-tab');
+
+      $('ul.tabs li').removeClass('act');
+      $('.tab-content').removeClass('current');
+
+      $(this).addClass('act');
+      $("#"+tab_id).addClass('current');
+    })
+
+  })
