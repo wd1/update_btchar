@@ -176,28 +176,37 @@
           .table-box.mt20
             table.standard-table.admin-table
               tr.title
-                td ID
+                td Created At
+                td Currency Text
+                td LINK
+                td Reason
                 td Amount
-                td Batch
-                td Operation
-                td Payment system
-                td Currency
-                td pair
-                td memo
-                td status
-              /tr.item
-                td.fs12 186342
-                td.fw700 1.09563465
-                td.fs12 58e455025954a33f9ce432df...
-                td SELL
-                td BitCoin
-                td BTC
-                td BTC/INR
-                td.fs12 Trade in 8436982
-                td
-                  .status-button.a-green-bg Complete
-            .pagination.mt20
-              a.item.act href=""  1
+                td Income
+                td Expense
+                td Fee
+              - @account_versions.each do |accountversion|
+                tr.item
+                  td.fs12 = accountversion.created_at
+                  td.fw700 = accountversion.currency_text
+                  td.fs12
+                    - if accountversion.modifiable_type
+                      span = accountversion.modifiable_type.constantize.model_name.human
+                    - else
+                      span N/A
+                  td = accountversion.reason_text
+                  td = accountversion.amount
+                  td
+                    - if accountversion.in
+                      code.text-info = accountversion.in
+                    - else
+                      span -
+                  td
+                    - if accountversion.out
+                      code.text-info = accountversion.out
+                    - else
+                      span -
+                  td.fs12 = accountversion.fee
+            = paginate @account_versions
         div#documents.row.mt10.tab-content
           .col-xs-6
             .send-form-section
