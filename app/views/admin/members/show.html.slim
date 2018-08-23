@@ -244,15 +244,17 @@
                 td Registration date
                 td Last commission
                 td actions
-              tr.item
-                td 
-                td
-                  .status-button.a-green-bg
-                td 
-                td 
-                td
-                  a.action-button.red href=""  
-                  a.action-button.blue href=""  
+              - @members.each do |member_each|
+                - if @member[:email] == member_each[:reference_id]
+                  tr.item
+                    td #{member_each[:email]}
+                    td
+                      .status-button.a-green-bg #{member_each[:activated]}
+                    td #{member_each[:created_at]}
+                    td #{@member[:reference_id]}
+                    td
+                      a.action-button.red href=""  
+                      a.action-button.blue href=""  
             .pagination.mt20
               a.item.act href=""  1
 

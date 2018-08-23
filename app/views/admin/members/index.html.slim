@@ -84,14 +84,14 @@
                 td 
                   a href="members/#{member[:id]}" #{member[:email]}
                 td #{member[:display_name]}
-                td
+                td 
                   - if member[:activated]
                     .status-button.a-green-bg active
                   - else
                     .status-button.a-red-bg unverified
                   - if member[:disabled]
                     .status-button.a-red-bg disabled
-                td 
+                td #{member[:reference_id]}
                 td #{member[:created_at]}
             /tr.item
               td.fs12 186342

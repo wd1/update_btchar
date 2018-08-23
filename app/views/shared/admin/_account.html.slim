@@ -84,7 +84,9 @@
       table.mt5.wallet-list
         tr
           - if account.payment_address.address
-            td = account.payment_address.address
+            td 
+              - account.payment_addresses.each do |payment_address|
+                div = payment_address.address
           - else
             td 'No Payment Address yet'
           td = account.payment_address.created_at

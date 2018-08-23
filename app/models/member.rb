@@ -37,8 +37,8 @@ class Member < ActiveRecord::Base
   after_update :sync_update
 
   class << self
-    def from_auth(auth_hash)
-      locate_auth(auth_hash) || locate_email(auth_hash) || create_from_auth(auth_hash)
+    def from_auth(auth_hash, params)
+      locate_auth(auth_hash) || locate_email(auth_hash) || create_from_auth(auth_hash,params)
     end
 
     def current
@@ -77,10 +77,12 @@ class Member < ActiveRecord::Base
     private
 
     def locate_auth(auth_hash)
+      puts 'locate_auth'
       Authentication.locate(auth_hash).try(:member)
     end
 
     def locate_email(auth_hash)
+      puts 'locate_email'
       return nil if auth_hash['info']['email'].blank?
       member = find_by_email(auth_hash['info']['email'])
       return nil unless member
@@ -88,10 +90,12 @@ class Member < ActiveRecord::Base
       member
     end
 
-    def create_from_auth(auth_hash)
-      member = create(email: auth_hash['info']['email'], nickname: auth_hash['info']['nickname'],
-                      activated: false)
+    def create_from_auth(auth_hash, params)
+      referrer = Member.find_by_sn(params[:reference]).email
+      member = create(email: auth_hash['info']['email'], nickname: params[:nickname],
+                      activated: false, reference_id: referrer)
       member.add_auth(auth_hash)
+      puts 'create_from_auth almost end'
       member.send_activation if auth_hash['provider'] == 'identity'
       member
     end

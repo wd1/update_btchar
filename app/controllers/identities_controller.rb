@@ -3,6 +3,7 @@ class IdentitiesController < ApplicationController
 
   def new
     @identity = env['omniauth.identity'] || Identity.new
+    @reference= params[:ref]
     @token = Token::ResetPassword.new
   end
 

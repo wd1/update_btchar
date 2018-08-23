@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
     # if !require_captcha? || simple_captcha_valid?
     #   @member = Member.from_auth(auth_hash)
     # end
-    @member = Member.from_auth(auth_hash)
+    @member = Member.from_auth(auth_hash, params)
     if @member
       # if @member.disabled?
       #   increase_failed_logins
@@ -72,6 +72,9 @@ class SessionsController < ApplicationController
     @auth_hash ||= env["omniauth.auth"]
   end
 
+  def auth_param
+    @auth_param ||= env["omniauth.params"]
+  end
 
 
   def save_signup_history(member_id)
