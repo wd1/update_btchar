@@ -14,7 +14,7 @@ div style="background:#ffffff;margin-bottom:0px;"
                 /.link https://bitcharge.com/?ref=5371934
                 .link 
                   span https://bitcharge.com/?ref=
-                  span = @current_user.id
+                  span = @current_user.sn
                 .copy
                   .icon
                     .img
@@ -24,10 +24,10 @@ div style="background:#ffffff;margin-bottom:0px;"
               .b-h-gradient.t-b-line
               .row.pt10.pb10
                 .col-xs-6.sbr.tac.pt14.pb14
-                  .fs30.fw700.lh30 12
+                  .fs30.fw700.lh30 = @referrals.length
                   .opacity5 total referrals
                 .col-xs-6.tac.pt14.pb14
-                  .fs30.fw700.lh30 5
+                  .fs30.fw700.lh30 = @referrals.length
                   .opacity5 active referrals
           .c2
             .rb5.w-bg.ovh
@@ -35,7 +35,7 @@ div style="background:#ffffff;margin-bottom:0px;"
               .row.pt10.pb10
                 .col-xs-12.sbr.tac.pt14.pb14
                   .fs30.fw700.lh30
-                    | 0.005341
+                    = @referrals.length * 0.01
                     span.fs16.lh16 BTC
                   .opacity5 total referral commission
           .c2
@@ -44,7 +44,7 @@ div style="background:#ffffff;margin-bottom:0px;"
               .row.pt10.pb10
                 .col-xs-12.sbr.tac.pt14.pb14
                   .fs30.fw700.lh30
-                    | 0.001231
+                    = @referrals.length * 0.01
                     span.fs16.lh16 BTC
                   .opacity5 referral commission on current month
   .pt10.pb45
@@ -117,59 +117,8 @@ div style="background:#ffffff;margin-bottom:0px;"
                 td Referral
                 td total orders
                 td profit orders
-              tr.data
-                td 42367234
-                td 32
-                td 12
-              tr.data.even
-                td 42367234
-                td 32
-                td 12
-              tr.data
-                td 42367234
-                td 32
-                td 12
-              tr.data.even
-                td 42367234
-                td 32
-                td 12
-              tr.data
-                td 42367234
-                td 32
-                td 12
-              tr.data.even
-                td 42367234
-                td 32
-                td 12
-              tr.data
-                td 42367234
-                td 32
-                td 12
-              tr.data.even
-                td 42367234
-                td 32
-                td 12
-              tr.data
-                td 42367234
-                td 32
-                td 12
-              tr.data.even
-                td 42367234
-                td 32
-                td 12
-              tr.data
-                td 42367234
-                td 32
-                td 12
-              tr.data.even
-                td 42367234
-                td 32
-                td 12
-              tr.data
-                td 42367234
-                td 32
-                td 12
-              tr.data.even
-                td 42367234
-                td 32
-                td 12
+              - @referrals.each do |referral|
+                tr.data
+                  td = referral.email
+                  td = referral.orders.length
+                  td = referral.orders.length

@@ -13,6 +13,11 @@ module Private
       @transactions = Kaminari.paginate_array(@transactions).page(params[:page]).per(20)
     end
 
+    def affiliate
+      @market = current_market
+      @referrals = Member.where(reference_id: current_user.email)
+    end
+
     def trades
       @trades = current_user.trades
         .includes(:ask_member).includes(:bid_member)
