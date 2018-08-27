@@ -133,6 +133,7 @@ Peatio::Application.routes.draw do
   post '/webhooks/tx' => 'webhooks#tx'
   post '/webhooks/eth' => 'webhooks#eth'
   draw :admin
+  post '/admin/members/profile' => 'admin/members#profile', as: :admin_member_profile
   get '/admin/transaction' => 'admin/transaction#index', as: :admin_transaction
   get '/admin/withdrawal_request' => 'admin/withdrawal_request#index', as: :admin_withdrawal_request
   get '/admin/bonus' => 'admin/bonus#index', as: :admin_bonus

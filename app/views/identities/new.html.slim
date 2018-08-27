@@ -76,7 +76,7 @@
                     input.signup-input name="nickname" placeholder=("First name") type="text" /
                   .col-xs-6
                     input.signup-input placeholder=("Second name") type="text" /
-                input.signup-input value=@reference.to_s placeholder=("Reference") name="reference" type="text" style= 'display:block;'/
+                input.signup-input value=@reference.to_s placeholder=("Reference") name="reference" type="text" style= 'display:block;' readonly='true'/
                 = f.input :email, :input_html => {:name => 'email', :autofocus => 'true', class: 'signup-input'}
                 = f.input :password, :input_html => {:name => 'password', class: 'signup-input'}
                 = f.input :password_confirmation, :input_html => {:name => 'password_confirmation', class: 'signup-input'}

@@ -1,7 +1,7 @@
 module Admin
   class MembersController < BaseController
     load_and_authorize_resource
-
+    skip_before_action :verify_authenticity_token, only: :profile
     def index
       @search_field = params[:search_field]
       @search_term = params[:search_term]
@@ -26,6 +26,12 @@ module Admin
       @member.update_attribute(:activated, true)
       @member.save
       redirect_to admin_member_path(@member)
+    end
+
+    def profile
+      @member = Member.find_by_email(params[:email])
+      @member.id_document.update_attributes(:address => params[:address], :country => params[:country], :aasm_state => params[:state], :city => params[:city], :zipcode=>params[:pincode])
+      redirect_to '/admin/members/'+@member[:id].to_s
     end
 
   end

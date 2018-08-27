@@ -52,61 +52,61 @@
               li(class="item"  data-tab="documents") documents
               li(class="item"  data-tab="referrals") referrals
         div#main.tab-content.current
-          form action="" 
+          form action="/admin/members/profile" method="post" 
             .row.mt10
               .col-xs-4
                 .input-box.s100
                   .input-label Name:
-                  input type="text" value="#{@member[:display_name]}"/
+                  input type="text" name="name" value="#{@member[:display_name]}"/
               .col-xs-4
                 .input-box.s100
                   .input-label E-mail:
-                  input type="text" value="#{@member[:email]}"/
+                  input type="text" name="email" value="#{@member[:email]}"/
               .col-xs-4
                 .input-box.s100
                   .input-label Phone:
-                  input type="text" value="#{@member[:phone_number]}"/
+                  input type="text" name="phone" value="#{@member[:phone_number]}"/
             .row.mt10
               .col-xs-4
                 .input-box.s100
                   .input-label Password:
-                  input type="text" value="#{@member[:password]}"/
+                  input type="text" name="password" value="#{@member[:password]}"/
               .col-xs-4
                 .input-box.s100
                   .input-label Status:
-                  select name="" 
+                  select name="status" 
                     option value=""  Active
                     option value=""  Blocked
               .col-xs-4
                 .input-box.s100
                   .input-label Upline:
-                  input type="text" /
+                  input name="upline" type="text" value="#{@member[:reference_id]}"/
             .row.mt30
               .col-xs-4
                 .input-box.s100
                   .input-label Address:
-                  input type="text" /
+                  input name="address" type="text" value="#{@member.id_document[:address]}"/
               .col-xs-4
                 .input-box.s100
                   .input-label Country:
-                  input type="text" /
+                  input name="country" type="text" value="#{@member.id_document[:country]}"/
               .col-xs-4
                 .input-box.s100
                   .input-label State:
-                  input type="text" /
+                  input name="state" type="text" value="#{@member.id_document[:aasm_state]}"/
             .row.mt10
               .col-xs-4
                 .input-box.s100
                   .input-label City:
-                  input type="text" /
+                  input name="city" value="#{@member.id_document[:city]}" type="text" /
               .col-xs-4
                 .input-box.s100
                   .input-label Pin code:
-                  input type="text" /
+                  input name="pincode" type="text" value="#{@member.id_document[:zipcode]}"/
               .col-xs-4
                 .input-box.s100
                   .input-label DOB:
-                  input type="text" /
+                  input name="dob" type="text" /
             .mt15.t-up
               | Security
             .row.mt10
@@ -119,7 +119,7 @@
                   input#u2fa_ci name="u2fa" type="radio" /
                   label for="u2fa_ci"  Disabled
               .col-xs-4
-                .input-box.s100
+                .input-box.s100Ca
                   .input-label Auto logout after N minutes
                   input type="text" /
               .col-xs-4
