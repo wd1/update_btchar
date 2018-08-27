@@ -30,7 +30,8 @@ module Admin
 
     def profile
       @member = Member.find_by_email(params[:email])
-      @member.id_document.update_attributes(:address => params[:address], :country => params[:country], :aasm_state => params[:state], :city => params[:city], :zipcode=>params[:pincode])
+      @member.id_document.update_attributes(:name =>params[:name], :address => params[:address], :country => params[:country], :aasm_state => params[:state], :city => params[:city], :zipcode=>params[:pincode])
+      @member.update_attribute(:email=> params[:email, :password =>'', :phone_number => params[:phone], :reference_id => params[:uplink], :state => params[:status])
       redirect_to '/admin/members/'+@member[:id].to_s
     end
 
