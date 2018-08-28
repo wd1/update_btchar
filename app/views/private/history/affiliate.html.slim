@@ -76,40 +76,46 @@ div style="background:#ffffff;margin-bottom:0px;"
                 .item
             .rb7.w-bg.grey-box.mt80.pl20.pr20.pt15.pb15.rel
               .af-inv-switcher
-                .item.li.act data-type="bm"  Invite friends by mail
-                .item.ri data-type="bp"  Invite friends by phone
-              .invite-box.ib-bm
-                .fs13.t-up.mb12.ml5 Add friend information
-                .row.form-line.mb12
-                  .col-xs-12.rel
-                    input.acc-input placeholder=("Enter name") type="text" /
-                    .acc-input-label.mr6 Name
-                .row.form-line.mb12.rel
-                  .col-xs-12
-                    input.acc-input placeholder=("Enter e-mail") type="text" /
-                    .acc-input-label.mr6 E-mail
-                .row.form-line.mb12
-                  .col-xs-12
-                    textarea.acc-textarea placeholder=("Enter message") type="text" 
-                .green-but.w.mt10.w230
-                  .icon
-                  .name SEND invitation
-              .invite-box.ib-bp.dn
-                .fs13.t-up.mb12.ml5 Add friend information
-                .row.form-line.mb12
-                  .col-xs-12.rel
-                    input.acc-input placeholder=("Enter name") type="text" /
-                    .acc-input-label.mr6 Name
-                .row.form-line.mb12.rel
-                  .col-xs-12
-                    input.acc-input placeholder=("Enter phone") type="text" /
-                    .acc-input-label.mr6 Phone
-                .row.form-line.mb12
-                  .col-xs-12
-                    textarea.acc-textarea placeholder=("Enter message") type="text" 
-                .green-but.w.mt10.w230
-                  .icon
-                  .name SEND invitation
+                .item.li.act.tablinks onclick="openCity(event, 'bm')" data-type="bm"  Invite friends by mail
+                .item.ri.tablinks onclick="openCity(event, 'bp')" data-type="bp"  Invite friends by phone
+              #bm.invite-box.ib-bm.tabcontent style="display:block;"
+                form action="/history/sendmail" method="post"
+                  input name="link" style="display:none;" type="text" value=("http://192.169.153.139:3000/signup?ref="+ (@current_user.sn))
+                  .fs13.t-up.mb12.ml5 Add friend information
+                  .row.form-line.mb12
+                    .col-xs-12.rel
+                      input.acc-input name="name" placeholder=("Enter name") type="text" /
+                      .acc-input-label.mr6 Name
+                  .row.form-line.mb12.rel
+                    .col-xs-12
+                      input.acc-input name="email" placeholder=("Enter e-mail") type="text" /
+                      .acc-input-label.mr6 E-mail
+                  .row.form-line.mb12
+                    .col-xs-12
+                      textarea.acc-textarea name="message" placeholder=("Enter message") type="text" 
+                  .green-but.w.mt10.w230
+                    .icon
+                    .name
+                      input style="border:none; background:none;" type="submit" value="SEND invitation" /
+              #bp.invite-box.ib-bp.dn.tabcontent
+                form action="/history/sendphonesms" method="post" 
+                  input name="link" style="display:none;" type="text" value=("http://192.169.153.139:3000/signup?ref="+ (@current_user.sn))
+                  .fs13.t-up.mb12.ml5 Add friend information
+                  .row.form-line.mb12
+                    .col-xs-12.rel
+                      input.acc-input name="name" placeholder=("Enter name") type="text" /
+                      .acc-input-label.mr6 Name
+                  .row.form-line.mb12.rel
+                    .col-xs-12
+                      input.acc-input name="phone" placeholder=("Enter phone") type="text" /
+                      .acc-input-label.mr6 Phone
+                  .row.form-line.mb12
+                    .col-xs-12
+                      textarea.acc-textarea name="message" placeholder=("Enter message") type="text" 
+                  .green-but.w.mt10.w230
+                    .icon
+                    .name 
+                      input style="border:none; background:none;" type="submit" value="SEND invitation" /
           .col-xs-8
             .fs16.fw700.b-color.mt35.mb10.t-up All referrals
             table.tb-data
@@ -122,3 +128,17 @@ div style="background:#ffffff;margin-bottom:0px;"
                   td = referral.email
                   td = referral.orders.length
                   td = referral.orders.length
+javascript:
+  function openCity(evt, cityName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" act", "");
+    }
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " act";
+  }

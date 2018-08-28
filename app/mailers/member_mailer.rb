@@ -28,10 +28,17 @@ class MemberMailer < BaseMailer
     set_mail(member_id)
   end
 
+  def set_mail_invite_friend(email, message)
+    puts 'vvvvvvvv'
+    @message = message
+    mail to: email
+  end
+
   private
 
   def set_mail(member_id)
     @member = Member.find member_id
     mail to: @member.email
   end
+
 end

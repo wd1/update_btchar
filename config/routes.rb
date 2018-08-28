@@ -98,6 +98,8 @@ Peatio::Application.routes.draw do
     get '/history/account' => 'history#account', as: :account_history
     get '/history/access' => 'history#access', as: :access_history
     get '/history/affiliate' => 'history#affiliate', as: :affiliate_history
+    post '/history/sendphonesms' => 'history#sendphonesms', as: :affiliate_sendphonesms
+    post '/history/sendmail' => 'history#sendmail', as: :affiliate_sendmail
     get '/history/commission' => 'history#commission', as: :commission_history
     get '/history/offer' => 'history#offer', as: :offer_special
     get '/support/center' => 'support#center', as: :center_support
