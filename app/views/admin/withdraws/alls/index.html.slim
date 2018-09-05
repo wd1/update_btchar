@@ -1,11 +1,11 @@
-- unless @one_argues.empty?
+- unless @one_alls.empty?
   .panel.panel-primary
     .panel-heading: span = t('.one')
-    = render partial: 'table', locals: {argues: @one_argues}
-- unless @all_argues.empty?
+    = render partial: 'table', locals: {alls: @one_alls}
+- unless @all_alls.empty?
   .panel.panel-success
     .panel-heading: span = t('.all')
-    = render partial: 'table', locals: {argues: @all_argues}
+    = render partial: 'table', locals: {alls: @all_alls}
 
-- if @all_argues.empty? and @one_argues.empty?
+- if @all_alls.empty? and @one_alls.empty?
   h3.text-info.text-center = t('.empty')
