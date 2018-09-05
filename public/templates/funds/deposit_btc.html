@@ -1,4 +1,27 @@
-
-<ng-include src="'/templates/funds/_deposit_coin.html'"></ng-include>
-
-<ng-include src="'/templates/funds/_deposit_coin_history.html'"></ng-include>
+<div class="wallet-action-button-box switcher-box" data-group="wallet-wd-box">
+    <div class="item act">
+        Deposit
+    </div>
+    <div class="item">
+        Withdraw
+    </div>
+</div>
+<div id="deposit_panel">
+    <div class="wallet-wd-box">
+        <div class="info-box">
+            Minimal deposit amount 0.01BTC<br>
+            Comission is 0.00%
+        </div>
+        <ng-include src="'/templates/funds/_deposit_coin.html'"></ng-include>
+    </div>
+</div>
+<div id="withdraw_panel">
+    <div class="wallet-wd-box dn">
+        <div class="info-box">
+            Minimal withdrawal amount 0.1BTC<br>
+            Maximal withdrawal amount 500BTC<br>
+            Commission 0.01BTC
+        </div>
+        <ng-include src="'/templates/funds/_coin_withdraw.html'"></ng-include>
+    </div>
+</div>

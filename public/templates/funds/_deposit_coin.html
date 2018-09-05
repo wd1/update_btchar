@@ -37,23 +37,11 @@
   </div>
 
 </section> -->
-<div class="wallet-action-button-box">
-    <div class="item act">
-        Deposit
+  <div class="ovh">
+    <div class="crypto-address-box">
+        <ng-include style="float:left;" src="'/templates/funds/_qrcode.html'"></ng-include>
+        <ng-include src="'/templates/funds/_address.html'"></ng-include>
     </div>
-    <div class="item">
-        Withdraw
-    </div>
-</div>
-
-<div class="info-box">
-    Minimal deposit amount 0.01ETH<br>
-    Comission is 0.00%
-</div>
-<div class="ovh">
-  <div class="crypto-address-box">
-      <ng-include style="float:left;" src="'/templates/funds/_qrcode.html'"></ng-include>
-      <ng-include src="'/templates/funds/_address.html'"></ng-include>
   </div>
-</div>
+  <ng-include src="'/templates/funds/_deposit_coin_history.html'"></ng-include>
 
