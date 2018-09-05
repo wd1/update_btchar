@@ -1,7 +1,7 @@
 module Admin
   module Withdraws
     class AllsController < ::Admin::Withdraws::BaseController
-      load_resource :class => '::Withdraws::All'
+      load_resource :class => '::Withdraws::Satoshi'
 
       def index
         start_at = DateTime.now.ago(60 * 60 * 24)
