@@ -81,13 +81,6 @@
     });
 
   </script>
-  
-
-  <div class="form-group">
-    <div class="form-submit col-sm-18 col-sm-offset-6">
-      
-    </div>
-  </div>
 
 </form>
 
@@ -106,18 +99,18 @@
   </table>
 </div>
 <div class="rel pr20 tl">
-      <table class="tb-data table withdraw-history" ng-controller="WithdrawHistoryController as wdCtrl">
-        <tbody>
-          <tr class="data" ng-class="{ 'even':$index%2==1,'new-row':dhCtrl.newRecord(deposit) }" ng-repeat="withdraw in wdCtrl.withdraws | orderBy:predicate">
-              <td class="w20">{{withdraw.created_at | date:'yyyy-MM-dd HH:mm'}}</td>
-              <td class="w15"><div class="dib fs12 rb5 g-border t-up pl10 pr10 g-color mr10">Withdraw</div></td>
-              <td class="w15">{{withdraw.amount}}</td>
-              <td class="w20">
-                  <span class="g-color">{{"funds.deposit_history." + withdraw.aasm_state | t}}</span>
-              </td>
-              <td class="w30">{{withdraw.txid}}</td>
-          </tr>
-          <tr ng-show="wdCtrl.noWithdraw()"><td colspan="6"><span class="help-block text-center">{{ "funds.withdraw_history.no_data" | t }}</span></td></tr>
+    <table class="tb-data table withdraw-history" ng-controller="WithdrawHistoryController as wdCtrl">
+      <tbody>
+        <tr class="data" ng-class="{ 'even':$index%2==1,'new-row':dhCtrl.newRecord(deposit) }" ng-repeat="withdraw in wdCtrl.withdraws | orderBy:predicate">
+            <td class="w20">{{withdraw.created_at | date:'yyyy-MM-dd HH:mm'}}</td>
+            <td class="w15"><div class="dib fs12 rb5 g-border t-up pl10 pr10 g-color mr10">Withdraw</div></td>
+            <td class="w15">{{withdraw.amount}}</td>
+            <td class="w20">
+                <span class="g-color">{{"funds.deposit_history." + withdraw.aasm_state | t}}</span>
+            </td>
+            <td class="w30">{{withdraw.txid}}</td>
+        </tr>
+        <tr ng-show="wdCtrl.noWithdraw()"><td colspan="6"><span class="help-block text-center">{{ "funds.withdraw_history.no_data" | t }}</span></td></tr>
       </tbody>
     </table>
 </div>
