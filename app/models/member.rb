@@ -95,6 +95,7 @@ class Member < ActiveRecord::Base
         referrer = Member.find_by_sn(params[:reference]).email
       else
         referrer = ''
+      end
       member = create(email: auth_hash['info']['email'], nickname: params[:nickname],
                       activated: false, reference_id: referrer)
       member.add_auth(auth_hash)
