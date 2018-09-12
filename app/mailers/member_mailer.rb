@@ -1,6 +1,7 @@
 class MemberMailer < BaseMailer
 
   def notify_signin(member_id)
+    puts member_id
     set_mail(member_id)
   end
 
