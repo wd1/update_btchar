@@ -63,13 +63,13 @@ module Private
       link = params[:link]
       message << "\nLink:" << link
       email = params[:email]
-      url = URI("http://control.msg91.com/api/sendmail.php?body="+message+"&subject=Singup Invitation&to="+params[:email]+"&from=bhuass8@gmail.com&authkey=188737AzwsuMr0F5a3893b2")
-      http = Net::HTTP.new(url.host, url.port)
+      # url = URI("http://control.msg91.com/api/sendmail.php?body="+message+"&subject=Singup Invitation&to="+params[:email]+"&from=bhuass8@gmail.com&authkey=188737AzwsuMr0F5a3893b2")
+      # http = Net::HTTP.new(url.host, url.port)
       
-      request = Net::HTTP::Post.new(url)
+      # request = Net::HTTP::Post.new(url)
       
-      response = http.request(request)
-      puts response.read_body
+      # response = http.request(request)
+      # puts response.read_body
       # name = params[:name]
       # message = "Dear"
       # message << name << "\n" << params[:message]
@@ -82,9 +82,9 @@ module Private
       # # puts message
       # # mail(to: email, subject: 'Welcome to My Awesome Site',body: message ,content_type: "text/html")
       # # 
-      # MemberMailer.set_mail_invite_friend(email, message).deliver
+      MemberMailer.set_mail_invite_friend(email, message).deliver
       # TokenMailer.activation(email, 'asdfasdfasdfasdfasdf').deliver
-      # puts 'asdfvw'
+      puts 'asdfvw'
       redirect_to affiliate_history_path
     end
     
